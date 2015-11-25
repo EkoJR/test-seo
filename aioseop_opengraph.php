@@ -189,9 +189,9 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 					'videoheight'	=> Array(	'name'			=> __( 'Specify Video Height', 'all-in-one-seo-pack' ),
 											 	'type'			=> 'text', 'default' => '', 'condshow' => Array( 'aioseop_opengraph_settings_video' => Array( 'lhs' => "aioseop_opengraph_settings_video", 'op' => '!=', 'rhs' => '' ) ) ),
 					'defcard'		=> Array(	'name'			=> __( 'Default Twitter Card', 'all-in-one-seo-pack' ),
-												'type'			=> 'select', 'initial_options' => Array( 'summary' => __( 'Summary', 'all-in-one-seo-pack' ), 'summary_large_image' => __( 'Summary Large Image', 'all-in-one-seo-pack' ), 'photo' => __( 'Photo', 'all-in-one-seo-pack' ) ), 'default' => 'summary' ),
+												'type'			=> 'select', 'initial_options' => Array( 'summary' => __( 'Summary', 'all-in-one-seo-pack' ), 'summary_large_image' => __( 'Summary Large Image', 'all-in-one-seo-pack' ) /*, *******REMOVING THIS TWITTER CARD TYPE FROM SOCIAL META MODULE****** 'photo' => __( 'Photo', 'all-in-one-seo-pack' ) */ ), 'default' => 'summary' ),
 					'setcard'		=> Array(	'name'			=> __( 'Twitter Card Type', 'all-in-one-seo-pack' ),
-												'type'			=> 'select', 'initial_options' => Array( 'summary' => __( 'Summary', 'all-in-one-seo-pack' ), 'summary_large_image' => __( 'Summary Large Image', 'all-in-one-seo-pack' ), 'photo' => __( 'Photo', 'all-in-one-seo-pack' ) ) ),
+												'type'			=> 'select', 'initial_options' => Array( 'summary_large_image' => __( 'Summary Large Image', 'all-in-one-seo-pack' ), 'summary' => __( 'Summary', 'all-in-one-seo-pack' ) /*, *******REMOVING THIS TWITTER CARD TYPE FROM SOCIAL META MODULE****** 'photo' => __( 'Photo', 'all-in-one-seo-pack' ) */ ) ),
 					'twitter_site'	=> Array(	'name'			=> __( 'Twitter Site', 'all-in-one-seo-pack' ),
 												'type'			=> 'text', 'default' => '' ),
 					'twitter_creator'=>Array(	'name'			=> __( 'Show Twitter Author', 'all-in-one-seo-pack' ) ),
@@ -684,7 +684,14 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 				
 			if ( !empty( $metabox['aioseop_opengraph_settings_setcard'] ) )
 				$card = $metabox['aioseop_opengraph_settings_setcard'];
-				
+			
+			
+			//support for changing legacy twitter cardtype-photo to summary large image
+			if($card == 'photo'){
+				$card = 'summary_large_image';
+			}
+			
+			
 			$site = $domain = $creator = '';
 			
 			if ( !empty( $this->options['aiosp_opengraph_twitter_site'] ) )
@@ -726,7 +733,9 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 						'site'			=> 'twitter:site',
 						'creator'		=> 'twitter:creator',
 						'domain'		=> 'twitter:domain',
+						'title'			=> 'twitter:title',
 						'description'	=> 'twitter:description',
+						'thumbnail'		=> 'twitter:image',
 					),
 				'google+'	=> Array(
 						'thumbnail'		=> 'image',

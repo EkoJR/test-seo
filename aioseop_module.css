@@ -270,6 +270,9 @@ div.aioseop_tip_icon:before {
 	margin: 0;
 	line-height: 1;
 }
+.aioseop_options_wrapper .submit input.button-primary {
+	margin-bottom: 5px;
+}
 #aiosp_feature_manager_metabox.postbox {
 	margin-top: 20px;
 	float: left;
