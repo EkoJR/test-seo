@@ -256,6 +256,17 @@ div.aioseop_tip_icon:before {
 #wincher15 {
 	background-image: url(images/banner15.png);
 }
+#wincher21 {
+	background-image: url(images/banner21.jpg);
+}
+#wincher22 {
+	background-image: url(images/banner22.jpg);
+}
+#wincher23 {
+	background-image: url(images/banner23.jpg);
+}
+}
+
 .aioseop_content {
 	min-width: 760px;
 	clear: left;
