@@ -67,6 +67,16 @@ Please read these **[FAQs](http://semperfiwebdesign.com/documentation/all-in-one
 
 == Upgrade Notice ==
 
+= 2.2.7.5 =
+fixes:
+category capitalization fixes
+
+enhancements:
+futureproofing the performance function for PHP7,8
+futureproofing the open graph and social meta function for PHP7,8
+futureproofing the file editor function for PHP7,8
+futureproofing the import-export function for PHP7,8
+
 = 2.2.7.4 = 
 
 -Update for WordPress 4.4
