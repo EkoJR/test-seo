@@ -2829,7 +2829,22 @@ EOF;
 			}
 			if (empty( $title ) )
 				$title = $this->internationalize( get_option( 'blogname' ) ) . ' | ' . $this->internationalize( get_bloginfo( 'description' ) );
-			return $this->paged_title( $title );
+				
+			if ( is_post_type_archive() && is_post_type_archive( 'product' ) && $post_id = woocommerce_get_page_id( 'shop' ) &&  $post = get_post( $post_id ) ){
+				
+				$title = $this->internationalize( get_post_meta( $post->ID, "_aioseop_title", true ) );
+				if ( !$title ) $title = $this->internationalize( $post->post_title );
+				if ( !$title ) $title = $this->internationalize( $this->get_original_title( '', false ) );
+				$title = $this->apply_page_title_format( $title, $post );
+	            $title = $this->paged_title( $title );
+				$title = apply_filters( 'aioseop_title_page', $title );
+				return $title;
+			
+			}	
+				
+				
+				
+			return $this->paged_title( $title ); //this is returned for woo
 		} else if ( is_attachment() ) {
 			if ( $post === null ) return false;
 			$title = get_post_meta( $post->ID, "_aioseop_title", true );
@@ -2871,6 +2886,7 @@ EOF;
 				return $title;
 			}
 		} else if ( function_exists( 'woocommerce_get_page_id' ) && is_post_type_archive( 'product' ) && ( $post_id = woocommerce_get_page_id( 'shop' ) ) && ( $post = get_post( $post_id ) ) ) {
+			//too far down? -mrt
 			$title = $this->internationalize( get_post_meta( $post->ID, "_aioseop_title", true ) );
 			if ( !$title ) $title = $this->internationalize( $post->post_title );
 			if ( !$title ) $title = $this->internationalize( $this->get_original_title( '', false ) );
