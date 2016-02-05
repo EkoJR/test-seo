@@ -796,6 +796,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 				add_action( "aioseop_global_settings_header",	Array( $this, 'display_right_sidebar' ) );
 				add_action( "aioseop_global_settings_footer",	Array( $this, 'display_settings_footer' ) );
 				add_action( "output_option", Array( $this, 'custom_output_option' ), 10, 2 );
+				add_action('all_admin_notices', array( $this, 'visibility_warning'));
 			}
 	}
 	
@@ -1634,6 +1635,29 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		return Array( 'publisher' => $publisher, 'author' => $author );
 	}
 	
+	function visibility_warning() {
+				
+		$aioseop_visibility_notice_dismissed = get_user_meta( get_current_user_id(), 'aioseop_visibility_notice_dismissed', true ); 
+		
+	  if ( '0' == get_option('blog_public') && empty( $aioseop_visibility_notice_dismissed ) ) {
+		
+		printf( '
+			<div id="message" class="error notice is-dismissible aioseop-notice">
+				<p>
+					<strong>%1$s</strong>
+					%2$s
+					
+				</p>
+			</div>',
+			__( 'Warning: You\'re blocking access to search engines.', 'all-in-one-seo-pack' ),
+			sprintf( __( 'You can %s click here%s to go to your reading settings and toggle your blog visibility.', 'all-in-one-seo-pack' ), sprintf( '<a href="%s">', esc_url( admin_url( 'options-reading.php' ) ) ), '</a>' ));
+		
+	  }elseif( '1' == get_option('blog_public') && !empty( $aioseop_visibility_notice_dismissed ) ){
+			delete_user_meta( get_current_user_id(), 'aioseop_visibility_notice_dismissed' );
+			}
+	}
+	
+
 	function get_robots_meta() {
 		global $aioseop_options;
 		$opts = $this->meta_opts;
@@ -3398,7 +3422,8 @@ EOF;
 		
 		add_action( 'aioseop_modules_add_menus', Array( $this, 'add_menu' ), 5 );
 		do_action( 'aioseop_modules_add_menus', $file );
-
+		
+			
 		$metaboxes = apply_filters( 'aioseop_add_post_metabox', Array() );
 		if ( !empty( $metaboxes ) ) {
 			if ( $this->tabbed_metaboxes ) {
