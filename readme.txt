@@ -24,7 +24,7 @@ All in One SEO Pack **Optimizes** your WordPress blog for SEO (**Search Engine O
 * Advanced Canonical URLs
 * Fine tune Page Navigational Links 
 * Built-in API so other plugins/themes can access and extend functionality
-* ONLY plugin to provide SEO Integration for WP e-Commerce sites
+* ONLY free plugin to provide SEO Integration for e-Commerce sites, including WooCommerce
 * Nonce Security built into All in One SEO Pack
 * Support for CMS-style WordPress installations
 * Automatically optimizes your **titles** for Google and other search engines
