@@ -464,22 +464,18 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			"cpostnoindex" => Array(
 				'name' => __( 'Default to NOINDEX:', 'all-in-one-seo-pack' ), 
 				'type' => 'multicheckbox', 'default' => array(),
-				'condshow' => Array( 'aiosp_enablecpost' => 'on' )
 				),
 			"cpostnofollow" => Array(
 				'name' => __( 'Default to NOFOLLOW:', 'all-in-one-seo-pack' ), 
 				'type' => 'multicheckbox', 'default' => array(),
-				'condshow' => Array( 'aiosp_enablecpost' => 'on' )
 				),
 			"cpostnoodp"=> Array(
 					'name' => __( 'Default to NOODP:', 'all-in-one-seo-pack' ),
 					'type' => 'multicheckbox', 'default' => array(),
-					'condshow' => Array( 'aiosp_enablecpost' => 'on' )
 				),
 			"cpostnoydir"=> Array(
 				'name' => __( 'Default to NOYDIR:', 'all-in-one-seo-pack' ),
 				'type' => 'multicheckbox', 'default' => array(),
-				'condshow' => Array( 'aiosp_enablecpost' => 'on' )
 				),
 			"cposttitles" => Array(
 				'name' => __( 'Custom titles:', 'all-in-one-seo-pack' ), 
