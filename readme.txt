@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=mrtor
 Tags: seo, all in one seo, search engine optimization, google, sitemap
 Requires at least: 3.3
 Tested up to: 4.4
-Stable tag: 2.2.7.6.1
+Stable tag: 2.2.7.6.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
