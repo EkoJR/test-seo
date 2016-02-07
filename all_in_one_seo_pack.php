@@ -161,6 +161,9 @@ if ( !function_exists( 'aioseop_init_class' ) ) {
 		if ( aioseop_option_isset( 'aiosp_unprotect_meta' ) )
 			add_filter( 'is_protected_meta', 'aioseop_unprotect_meta', 10, 3 );
 		
+		load_plugin_textdomain( 'all-in-one-seo-pack', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+		
+		
 		add_action( 'init', array( $aiosp, 'add_hooks' ) );
 		
 		if ( defined( 'DOING_AJAX' ) && !empty( $_POST ) && !empty( $_POST['action'] ) && ( $_POST['action'] === 'aioseop_ajax_scan_header' ) ) {
