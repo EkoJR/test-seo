@@ -568,7 +568,7 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			);
 			return $referlist;
 		}
-		
+
 		function is_bad_referer() {
 			$referlist = $this->default_bad_referers();
 			$referlist = apply_filters( $this->prefix . "badreferlist", $referlist );
@@ -589,7 +589,7 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 				$allow_bot = false;
 			return apply_filters( $this->prefix . "allow_bot", $allow_bot );
 		}
-				
+
 		/**
 		 * Displays tabs for tabbed locations on a settings page.
 		 */
@@ -1942,7 +1942,12 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 				if ( $post == null ) {
 					global $post;
 				}
-				if ( isset( $post ) ) {
+				
+				if ( AIOSEOPPRO ){
+					
+				$get_opts = AIO_ProGeneral::getprotax( $get_opts );
+					
+				} elseif ( isset( $post ) ) {
 					$get_opts = get_post_meta( $post->ID, '_' . $prefix . $location, true );
 				}
 			}

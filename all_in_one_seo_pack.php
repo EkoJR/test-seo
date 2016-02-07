@@ -198,9 +198,14 @@ function sfwd_add_action_links( $actions, $plugin_file ) {
 		
 		'forum' => array(
 		      'label' => __('Support Forum', 'all-in-one-seo-pack'),
-		      'url'   => get_admin_url(null, "http://semperplugins.com/support/")
+		      'url'   => 'http://semperplugins.com/support/'
+			),
+
+		'docs' => array(
+		      'label' => __('Documentation', 'all-in-one-seo-pack'),
+		      'url'   => 'http://semperplugins.com/documentation/'
 			)
-		
+	
    	);
 
 unset( $actions['edit'] );
@@ -265,6 +270,11 @@ if ( !function_exists( 'aioseop_init_class' ) ) {
 		global $aiosp;
 		require_once( AIOSEOP_PLUGIN_DIR . 'aioseop_functions.php' );
 		require_once( AIOSEOP_PLUGIN_DIR . 'aioseop_class.php' );
+		
+		if( AIOSEOPPRO ){
+			require_once( AIOSEOP_PLUGIN_DIR . '/pro/functions-general.php' );
+		}
+
 		$aiosp = new All_in_One_SEO_Pack();
 
 		if ( aioseop_option_isset( 'aiosp_unprotect_meta' ) )
