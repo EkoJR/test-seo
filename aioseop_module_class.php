@@ -1943,9 +1943,11 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 					global $post;
 				}
 				
-				if ( AIOSEOPPRO ){
-					
-				$get_opts = AIO_ProGeneral::getprotax( $get_opts );
+				if ( ( isset( $_GET['taxonomy'] ) && isset( $_GET['tag_ID'] ) ) || is_category() || is_tag() || is_tax() ) {
+
+					if ( AIOSEOPPRO ) {
+						$get_opts = AIO_ProGeneral::getprotax( $get_opts );
+					}
 					
 				} elseif ( isset( $post ) ) {
 					$get_opts = get_post_meta( $post->ID, '_' . $prefix . $location, true );
