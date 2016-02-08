@@ -483,7 +483,7 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 			$type = $this->type;
 			$sitename = $this->options['aiosp_opengraph_sitename'];
 			
-			$appid = $this->options['aiosp_opengraph_appid'];
+			$appid = isset($this->options['aiosp_opengraph_appid']) ? $this->options['aiosp_opengraph_appid'] : '';
 						
 			if ( !empty( $aioseop_options['aiosp_hide_paginated_descriptions'] ) ) {
 				$first_page = false;
