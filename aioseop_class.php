@@ -321,11 +321,11 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		);
 
 		$this->default_options = array(
-		   "license_key" => Array(
-			       'name' => __( 'License Key:', 'all-in-one-seo-pack' ),
-			       'type' => 'text' ),
+			"license_key" => Array(
+				'name' => __( 'License Key:', 'all-in-one-seo-pack' ),
+				'type' => 'text' ),
 			"donate" => Array(
-				   'name' => __( 'I enjoy this plugin and have made a donation:', 'all-in-one-seo-pack' ) ),
+				'name' => __( 'I enjoy this plugin and have made a donation:', 'all-in-one-seo-pack' ) ),
 			"home_title"=> Array(
 				'name' => __( 'Home Title:', 'all-in-one-seo-pack' ),
 				'default' => null, 'type' => 'textarea', 'sanitize' => 'text',
@@ -851,8 +851,8 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 							add_term_meta( $term_id, '_aioseop_term_was_split', true, true );
 						}
 					}
-				
 			}
+
 	function get_page_snippet_info() {
 		static $info = Array();
 		if ( !empty( $info ) )
@@ -972,19 +972,19 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			if ( strpos( $title_format, '%post_title%' ) !== false ) $title_format = str_replace( '%post_title%', $replace_title, $title_format );
 			if ( strpos( $title_format, '%page_title%' ) !== false ) $title_format = str_replace( '%page_title%', $replace_title, $title_format );
 			if ( $w->is_category || $w->is_tag || $w->is_tax ) {
-					if(AIOSEOPPRO){
+				if(AIOSEOPPRO){
 					if ( !empty( $_GET ) && !empty( $_GET['taxonomy'] ) && function_exists( 'wp_get_split_terms' ) ) {
 						$was_split = get_term_meta( $term_id, '_aioseop_term_was_split', true );
-						if ( !$was_split ) {
-							$split_terms = wp_get_split_terms( $featured_tag_id, $_GET['taxonomy'] );
-							if ( !empty( $split_terms ) ) {
-								foreach ( $split_terms as $new_tax => $new_term ) {
-									$this->split_shared_term( $term_id, $new_term );
-					            }
-							}
+					if ( !$was_split ) {
+						$split_terms = wp_get_split_terms( $featured_tag_id, $_GET['taxonomy'] );
+					if ( !empty( $split_terms ) ) {
+						foreach ( $split_terms as $new_tax => $new_term ) {
+							$this->split_shared_term( $term_id, $new_term );
 						}
 					}
 				}
+			}
+		}
 				if ( strpos( $title_format, '%category_title%' ) !== false ) $title_format = str_replace( '%category_title%', $replace_title, $title_format );
 				if ( strpos( $title_format, '%taxonomy_title%' ) !== false ) $title_format = str_replace( '%taxonomy_title%', $replace_title, $title_format );
 			} else {

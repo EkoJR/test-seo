@@ -307,7 +307,13 @@ if ( !function_exists( 'aioseop_ajax_init' ) ) {
 	}
 }
 
+	function aioseop_embed_handler_html( $return, $url, $attr ) {
+		return AIO_ProGeneral::aioseop_embed_handler_html();
+	}
 
+	function aioseop_ajax_update_oembed() {
+		AIO_ProGeneral::aioseop_ajax_update_oembed();
+	}
 
 if ( !function_exists( 'aioseop_ajax_save_url' ) ) {
 	function aioseop_ajax_save_url() {
@@ -319,14 +325,21 @@ if ( !function_exists( 'aioseop_ajax_save_url' ) ) {
 		global $aiosp, $aioseop_modules;
 		aioseop_load_modules();
 		$aiosp->admin_menu();
-		$module = $aioseop_modules->return_module( "All_in_One_SEO_Pack_Sitemap" );
+		if ( !empty( $_POST['settings'] ) && ( $_POST['settings'] == 'video_sitemap_addl_pages' ) ) {
+			$module = $aioseop_modules->return_module( "All_in_One_SEO_Pack_Video_Sitemap" );
+		} elseif ( !empty( $_POST['settings'] ) && ( $_POST['settings'] == 'news_sitemap_addl_pages' ) ) {
+			$module = $aioseop_modules->return_module( "All_in_One_SEO_Pack_News_Sitemap" );
+		} else {
+			$module = $aioseop_modules->return_module( "All_in_One_SEO_Pack_Sitemap" );
+		}
 		$_POST['location'] = null;
 		$_POST['Submit'] = 'ajax';
 		$module->add_page_hooks();
+		$prefix = $module->get_prefix();
 		$_POST = $module->get_current_options( $_POST, null );
 		$module->handle_settings_updates( null );
 		$options = $module->get_current_options( Array(), null );
-		$output = $module->display_custom_options( '', Array( 'name' => 'aiosp_sitemap_addl_pages', 'type' => 'custom', 'save' => true, 'value' => $options['aiosp_sitemap_addl_pages'], 'attr' => '' ) );
+		$output = $module->display_custom_options( '', Array( 'name' => $prefix . 'addl_pages', 'type' => 'custom', 'save' => true, 'value' => $options[$prefix . 'addl_pages'], 'attr' => '' ) );
 		$output = str_replace( "'", "\'", $output );
 		$output = str_replace( "\n", '\n', $output );
 		die( sprintf( AIOSEOP_AJAX_MSG_TMPL, $output ) );
@@ -441,8 +454,6 @@ if ( !function_exists( 'aioseop_ajax_scan_header' ) ) {
 		$output = $meta;
 		$output = str_replace( "'", "\'", $output );
 		$output = str_replace( "\n", '\n', $output );
-//		$output = str_replace( "<", '&lt;', $output );
-//		$output = str_replace( ">", '&gt;', $output );
 		die( sprintf( AIOSEOP_AJAX_MSG_TMPL, $output ) );
 	}
 }
@@ -462,9 +473,14 @@ if (!function_exists('aioseop_ajax_save_settings')) {
 		if ( empty( $_POST['location'] ) ) $_POST['location'] = null;
 		$_POST['Submit'] = 'ajax';
 		$module->add_page_hooks();
-//		$_POST = $module->get_current_options( $_POST, $_POST['location'] );
 		$output = $module->handle_settings_updates( $_POST['location'] );
-		$output = '<div id="aioseop_settings_header"><div id="message" class="updated fade"><p>' . $output . '</p></div></div><style>body.all-in-one-seo_page_all-in-one-seo-pack-aioseop_feature_manager .aioseop_settings_left { margin-top: 45px !important; }</style>';
+
+		if( AIOSEOPPRO ){
+					$output = '<div id="aioseop_settings_header"><div id="message" class="updated fade"><p>' . $output . '</p></div></div><style>body.all-in-one-seo_page_all-in-one-seo-pack-pro-aioseop_feature_manager .aioseop_settings_left { margin-top: 45px !important; }</style>';
+				}else{
+					$output = '<div id="aioseop_settings_header"><div id="message" class="updated fade"><p>' . $output . '</p></div></div><style>body.all-in-one-seo_page_all-in-one-seo-pack-aioseop_feature_manager .aioseop_settings_left { margin-top: 45px !important; }</style>';
+				}
+
 		die( sprintf( AIOSEOP_AJAX_MSG_TMPL, $output ) );
 	}
 }
@@ -481,10 +497,6 @@ if (!function_exists('aioseop_ajax_get_menu_links')) {
 		$aiosp->admin_menu();
 		if ( empty( $_POST['location'] ) ) $_POST['location'] = null;
 		$_POST['Submit'] = 'ajax';
-//		$module->add_page_hooks();
-
-//		include_once( ABSPATH . "/wp-admin/admin.php" );
-
 		$modlist = $aioseop_modules->get_loaded_module_list();
 		$links = Array();
 		$link_list = Array();
@@ -716,8 +728,6 @@ if ( !function_exists( 'aioseop_load_json_services' ) ) {
 	}
 }
 
-
-
 if ( !function_exists( 'json_encode' ) ) {
 	function json_encode( $arg ) {
 		$services_json = aioseop_load_json_services();
@@ -768,4 +778,5 @@ if ( !function_exists( 'parse_ini_string' ) ) {
 function aioseop_update_user_visibilitynotice(){
 
 	update_user_meta( get_current_user_id(), 'aioseop_visibility_notice_dismissed', true );
-}
+
+	}
