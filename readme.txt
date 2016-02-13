@@ -70,18 +70,17 @@ manually.
 3. Enjoy higher SEO rankings in the search engines!
 4. Relax.
 
-== Other Notes ==
 
-=General Settings=
+==General Settings==
 https://www.youtube.com/watch?v=uGt6CVbA5bI
 
-=XML Sitemaps=
+==XML Sitemaps==
 https://www.youtube.com/watch?v=zvNU92Low8A
 
-=Social Meta=
+==Social Meta==
 https://www.youtube.com/watch?v=Dfe49FiiAog
 
-=Performance=
+==Performance==
 https://www.youtube.com/watch?v=A0VKinM5s00
 
 
