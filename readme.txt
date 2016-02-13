@@ -70,7 +70,7 @@ manually.
 3. Enjoy higher SEO rankings in the search engines!
 4. Relax.
 
-== Videos ==
+== Other Notes ==
 
 =General Settings=
 https://www.youtube.com/watch?v=uGt6CVbA5bI
