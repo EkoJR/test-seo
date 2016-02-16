@@ -1774,10 +1774,14 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 				if ( ( $aiosp_nofollow == 'on' ) || ( ( !empty( $aioseop_options['aiosp_paginated_nofollow'] ) ) && ( ( $page > 1 ) ) ) ||
 					 ( ( $aiosp_nofollow == '' ) && ( !empty( $aioseop_options['aiosp_cpostnofollow'] ) ) && ( in_array( $post_type, $aioseop_options['aiosp_cpostnofollow'] ) ) ) )
 					$nofollow = "no" . $nofollow;
-				if ( ( !empty( $aioseop_options['aiosp_cpostnoodp'] ) && ( in_array( $post_type, $aioseop_options['aiosp_cpostnoodp'] ) ) ) )
+				if ( ( $aiosp_noodp == 'on' ) || ( empty( $aiosp_noodp ) && ( !empty( $aioseop_options['aiosp_cpostnoodp'] ) && ( in_array( $post_type, $aioseop_options['aiosp_cpostnoodp'] ) ) ) ) )
 					$aiosp_noodp = true;
-				if ( ( !empty( $aioseop_options['aiosp_cpostnoydir'] ) && ( in_array( $post_type, $aioseop_options['aiosp_cpostnoydir'] ) ) ) )
+				else 
+				    $aiosp_noodp = false;
+				if ( ( $aiosp_noydir == 'on' ) || ( empty( $aiosp_noydir ) && ( !empty( $aioseop_options['aiosp_cpostnoydir'] ) && ( in_array( $post_type, $aioseop_options['aiosp_cpostnoydir'] ) ) ) ) )
 					$aiosp_noydir = true;
+				else
+				    $aiosp_noydir = false;
 			}
 		}
 		if ( !empty( $aioseop_options['aiosp_noodp'] ) && $aioseop_options['aiosp_noodp'] )   $aiosp_noodp = true;
