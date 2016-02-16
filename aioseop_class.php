@@ -1003,9 +1003,9 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 										$term = $terms[0];
 									$title_format = str_replace( "%tax_{$t->name}%", $term, $title_format );
 								}
+							}
+						}
 					}
-				}
-			}
 			if ( strpos( $title_format, '%taxonomy_description%' ) !== false ) $title_format = str_replace( '%taxonomy_description%', $description, $title_format );
 
 			$title_format = preg_replace( '/%([^%]*?)%/', '', $title_format );
@@ -1027,17 +1027,29 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		$this->add_admin_pointers();
 		?>
 	    <style>
-	        #toplevel_page_all-in-one-seo-pack-aioseop_class .wp-menu-image {
-	            background: url(<?php echo AIOSEOP_PLUGIN_IMAGES_URL; ?>shield-sprite-16.png) no-repeat 8px 6px !important;
-	        }
+			#toplevel_page_all-in-one-seo-pack-pro-aioseop_class .wp-menu-image {
+				background: url(<?php echo AIOSEOP_PLUGIN_IMAGES_URL; ?>shield-sprite-16.png) no-repeat 8px 6px !important;
+			}
+			#toplevel_page_all-in-one-seo-pack-aioseop_class .wp-menu-image {
+				background: url(<?php echo AIOSEOP_PLUGIN_IMAGES_URL; ?>shield-sprite-16.png) no-repeat 8px 6px !important;
+			}
+			#toplevel_page_all-in-one-seo-pack-pro-aioseop_class .wp-menu-image img {
+				display: none;
+			}
+			#toplevel_page_all-in-one-seo-pack-aioseop_class .wp-menu-image img {
+				display: none;
+			}
+			#adminmenu #toplevel_page_all-in-one-seo-pack-pro-aioseop_class .wp-menu-image:before {
+				content: '';
+			}
 			#toplevel_page_all-in-one-seo-pack-aioseop_class .wp-menu-image:before {
 				content: '' !important;
 			}
-	        #toplevel_page_all-in-one-seo-pack-aioseop_class .wp-menu-image img {
-	            display: none;
+			#toplevel_page_all-in-one-seo-pack-pro-aioseop_class:hover .wp-menu-image, #toplevel_page_all-in-one-seo-pack-pro-aioseop_class.wp-has-current-submenu .wp-menu-image {
+				background-position: 8px -26px !important;
 	        }
-	        #toplevel_page_all-in-one-seo-pack-aioseop_class:hover .wp-menu-image, #toplevel_page_all-in-one-seo-pack-aioseop_class.wp-has-current-submenu .wp-menu-image {
-	            background-position: 8px -26px !important;
+			#toplevel_page_all-in-one-seo-pack-aioseop_class:hover .wp-menu-image, #toplevel_page_all-in-one-seo-pack-aioseop_class.wp-has-current-submenu .wp-menu-image {
+				background-position: 8px -26px !important;
 	        }
 	        #icon-aioseop.icon32 {
 	            background: url(<?php echo AIOSEOP_PLUGIN_IMAGES_URL; ?>shield32.png) no-repeat left top !important;
@@ -1049,6 +1061,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 				background-position: 10px;
 				font-size: 14px;
 				min-height: 32px;
+				clear: none;
 			}
 
 	        @media
@@ -1058,29 +1071,36 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 	        only screen and (        min-device-pixel-ratio: 1.5),
 	        only screen and (                min-resolution: 1.5dppx) {
 
-	            #toplevel_page_all-in-one-seo-pack-aioseop_class .wp-menu-image {
-	                background-image: url('<?php echo AIOSEOP_PLUGIN_IMAGES_URL; ?>shield-sprite-32.png') !important;
-	                -webkit-background-size: 16px 48px !important;
-	                -moz-background-size: 16px 48px !important;
-	                background-size: 16px 48px !important;
-	            }
+				#toplevel_page_all-in-one-seo-pack-pro-aioseop_class .wp-menu-image {
+					background-image: url('<?php echo AIOSEOP_PLUGIN_IMAGES_URL; ?>shield-sprite-32.png') !important;
+					-webkit-background-size: 16px 48px !important;
+					-moz-background-size: 16px 48px !important;
+					background-size: 16px 48px !important;
+				}
 
-	            #icon-aioseop.icon32 {
-	                background-image: url('<?php echo AIOSEOP_PLUGIN_IMAGES_URL; ?>shield64.png') !important;
-	                -webkit-background-size: 32px 32px !important;
-	                -moz-background-size: 32px 32px !important;
-	                background-size: 32px 32px !important;
-	            }
+				#toplevel_page_all-in-one-seo-pack-aioseop_class .wp-menu-image {
+					background-image: url('<?php echo AIOSEOP_PLUGIN_IMAGES_URL; ?>shield-sprite-32.png') !important;
+					-webkit-background-size: 16px 48px !important;
+					-moz-background-size: 16px 48px !important;
+					background-size: 16px 48px !important;
+				}
+
+				#icon-aioseop.icon32 {
+					background-image: url('<?php echo AIOSEOP_PLUGIN_IMAGES_URL; ?>shield64.png') !important;
+					-webkit-background-size: 32px 32px !important;
+					-moz-background-size: 32px 32px !important;
+					background-size: 32px 32px !important;
+				}
 
 				#aioseop_settings_header #message {
 					background-image: url(<?php echo AIOSEOP_PLUGIN_IMAGES_URL; ?>update64.png) !important;
-				    -webkit-background-size: 32px 32px !important;
-				    -moz-background-size: 32px 32px !important;
-				    background-size: 32px 32px !important;
+					-webkit-background-size: 32px 32px !important;
+					-moz-background-size: 32px 32px !important;
+					background-size: 32px 32px !important;
 				}
-	        }
-	    </style>
-		<script>
+			}
+			</style>
+			<script>
 			function aioseop_show_pointer( handle, value ) {
 				if ( typeof( jQuery ) != 'undefined' ) {
 					var p_edge = 'bottom';
@@ -1089,18 +1109,18 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 						if ( typeof( value.pointer_edge ) != 'undefined' ) p_edge = value.pointer_edge;
 						if ( typeof( value.pointer_align ) != 'undefined' ) p_align = value.pointer_align;
 						jQuery(value.pointer_target).pointer({
-									content    : value.pointer_text,
-									position: {
-										edge: p_edge,
-										align: p_align
-									},
-									close  : function() {
-										jQuery.post( ajaxurl, {
-											pointer: handle,
-											action: 'dismiss-wp-pointer'
-										});
-									}
-								}).pointer('open');
+							content    : value.pointer_text,
+							position: {
+								edge: p_edge,
+								align: p_align
+							},
+							close  : function() {
+								jQuery.post( ajaxurl, {
+									pointer: handle,
+									action: 'dismiss-wp-pointer'
+								});
+							}
+						}).pointer('open');
 					}
 				}
 			}
@@ -1158,6 +1178,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		$this->default_options["cpostnofollow"]['initial_options'] = $post_types;
 		$this->default_options["cpostnoodp"]['initial_options'] = $post_types;
 		$this->default_options["cpostnoydir"]['initial_options'] = $post_types;
+		if ( AIOSEOPPRO )	$this->default_options["taxactive"]['initial_options'] = $tax_types;
 		$this->default_options["google_author_location"]['initial_options'] = $post_types;
 		$this->default_options['google_author_location' ]['initial_options'] = array_merge( Array( 'front' => __( 'Front Page', 'all-in-one-seo-pack' ) ), $post_types, Array( 'all' => __( 'Everywhere Else', 'all-in-one-seo-pack' ) ) );
 		$this->default_options["google_author_location"]['default'] = array_keys( $this->default_options["google_author_location"]['initial_options'] );
@@ -1203,28 +1224,76 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		$this->default_options["tax_noindex"]['initial_options'] = $tax_types;
 		if ( empty( $tax_types ) )
 			unset( $this->default_options["tax_noindex"] );
+
+		if (AIOSEOPPRO) {
+		foreach ( $tax_types as $p => $pt ) {
+			$field = $p . "_tax_title_format";
+			$name = $pt;
+			if ( !isset( $this->default_options[$field] ) ) {
+				$this->default_options[$field] = Array (
+						'name' => "$name " . __( 'Taxonomy Title Format:', 'all-in-one-seo-pack' ),
+						'type' => 'text',
+						'default' => '%taxonomy_title% | %blog_title%',
+						'condshow' => Array( 'aiosp_rewrite_titles' => 1, 'aiosp_enablecpost' => 'on', 'aiosp_cpostadvanced' => 'on', 'aiosp_cposttitles' => 'on', 'aiosp_taxactive\[\]' => $p )
+				);
+				$this->help_text[$field] = __( "The following macros are supported:", 'all-in-one-seo-pack' ) .
+					'<ul><li>' . __( '%blog_title% - Your blog title', 'all-in-one-seo-pack' ) . '</li><li>' .
+					__( '%blog_description% - Your blog description', 'all-in-one-seo-pack' ) . '</li><li>' .
+					__( '%taxonomy_title% - The original title of the taxonomy', 'all-in-one-seo-pack' ) . '</li><li>' .
+					__( '%taxonomy_description% - The description of the taxonomy', 'all-in-one-seo-pack' ) . '</li></ul>';
+				$this->help_anchors[$field] = '#custom-titles';
+				$this->layout['cpt']['options'][] = $field;
+				}
+			}
+		}
 		$this->setting_options();
 		$this->add_help_text_links();
+		
+		if (AIOSEOPPRO){
+		global $aioseop_update_checker;
+		add_action( "{$this->prefix}update_options", Array( $aioseop_update_checker, 'license_change_check' ), 10, 2 );
+		add_action( "{$this->prefix}settings_update", Array( $aioseop_update_checker, 'update_check' ), 10, 2 );
+		}
+		
 		add_filter( "{$this->prefix}display_options", Array( $this, 'filter_options' ), 10, 2 );
 		parent::add_page_hooks();
 	}
 
 	function add_admin_pointers() {
-		$this->pointers['aioseop_menu_220'] = Array( 'pointer_target' => '#toplevel_page_all-in-one-seo-pack-aioseop_class',
+		if ( AIOSEOPPRO ) {
+		$this->pointers['aioseop_menu_236'] = Array( 'pointer_target' => '#toplevel_page_all-in-one-seo-pack-pro-aioseop_class',
 												 'pointer_text' => 	'<h3>' . sprintf( __( 'Welcome to Version %s!', 'all-in-one-seo-pack' ), AIOSEOP_VERSION )
-													. '</h3><p>' . __( 'Thank you for running the latest and greatest All in One SEO Pack ever! Please review your settings, as we\'re always adding new features for you!', 'all-in-one-seo-pack' ) . '</p>',
+													. '</h3><p>' . __( 'Thank you for running the latest and greatest All in One SEO Pack Pro ever! Please review your settings, as we\'re always adding new features for you!', 'all-in-one-seo-pack' ) . '</p>',
 												 'pointer_edge' => 'top',
 												 'pointer_align' => 'left',
 												 'pointer_scope' => 'global'
 											);
-		$this->pointers['aioseop_welcome_220'] = Array( 'pointer_target' => '#aioseop_top_button',
+		$this->pointers['aioseop_welcome_230'] = Array( 'pointer_target' => '#aioseop_top_button',
 													'pointer_text' => '<h3>' . sprintf( __( 'Review Your Settings', 'all-in-one-seo-pack' ), AIOSEOP_VERSION )
-													. '</h3><p>' . __( 'Thank you for running the latest and greatest All in One SEO Pack ever! New since 2.2: Control who accesses your site with the new Robots.txt Editor and File Editor modules!  Enable them from the Feature Manager.  Remember to review your settings, we have added some new ones!', 'all-in-one-seo-pack' ) . '</p>',
+													. '</h3><p>' . __( 'New in 2.3: improved support for taxonomies and a Video Sitemap module; enable modules from our feature manager! And please review your settings, we have added some new ones!', 'all-in-one-seo-pack' ) . '</p>',
 													 'pointer_edge' => 'bottom',
 													 'pointer_align' => 'left',
 													 'pointer_scope' => 'local'
 											 );
 		$this->filter_pointers();
+		}
+		else {
+			$this->pointers['aioseop_menu_220'] = Array( 'pointer_target' => '#toplevel_page_all-in-one-seo-pack-aioseop_class',
+													 'pointer_text' => 	'<h3>' . sprintf( __( 'Welcome to Version %s!', 'all-in-one-seo-pack' ), AIOSEOP_VERSION )
+														. '</h3><p>' . __( 'Thank you for running the latest and greatest All in One SEO Pack ever! Please review your settings, as we\'re always adding new features for you!', 'all-in-one-seo-pack' ) . '</p>',
+													 'pointer_edge' => 'top',
+													 'pointer_align' => 'left',
+													 'pointer_scope' => 'global'
+												);
+			$this->pointers['aioseop_welcome_220'] = Array( 'pointer_target' => '#aioseop_top_button',
+														'pointer_text' => '<h3>' . sprintf( __( 'Review Your Settings', 'all-in-one-seo-pack' ), AIOSEOP_VERSION )
+														. '</h3><p>' . __( 'Thank you for running the latest and greatest All in One SEO Pack ever! New since 2.2: Control who accesses your site with the new Robots.txt Editor and File Editor modules!  Enable them from the Feature Manager.  Remember to review your settings, we have added some new ones!', 'all-in-one-seo-pack' ) . '</p>',
+														 'pointer_edge' => 'bottom',
+														 'pointer_align' => 'left',
+														 'pointer_scope' => 'local'
+												 );
+			$this->filter_pointers();
+		}
 	}
 
 	function settings_page_init() {
@@ -1247,13 +1316,36 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 	 * Handle resetting options to defaults.
 	 */
 	function reset_options( $location = null, $delete = false ) {
+		if ( AIOSEOPPRO) {
+			global $aioseop_update_checker;
+		}
 		if ( $delete === true ) {
+
+			if ( AIOSEOPPRO ) {
+			$license_key = '';
+			if ( isset( $this->options ) && isset( $this->options['aiosp_license_key'] ) )
+				$license_key = $this->options['aiosp_license_key'];
+			}
+
 			$this->delete_class_option( $delete );
-			$this->options = Array();
+
+			if ( AIOSEOPPRO ) {
+			$this->options = Array( 'aiosp_license_key' => $license_key );
+			} else {
+				$this->options = Array();
+			}
 		}
 		$default_options = $this->default_options( $location );
+
+		if ( AIOSEOPPRO ) {
 		foreach ( $default_options as $k => $v )
+			if ( $k != 'aiosp_license_key' )
 				$this->options[$k] = $v;
+		$aioseop_update_checker->license_key = $this->options['aiosp_license_key'];
+		} else {
+			foreach ( $default_options as $k => $v )
+				$this->options[$k] = $v;
+			}
 		$this->update_class_option( $this->options );
 	}
 
@@ -1777,11 +1869,11 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 				if ( ( $aiosp_noodp == 'on' ) || ( empty( $aiosp_noodp ) && ( !empty( $aioseop_options['aiosp_cpostnoodp'] ) && ( in_array( $post_type, $aioseop_options['aiosp_cpostnoodp'] ) ) ) ) )
 					$aiosp_noodp = true;
 				else 
-				    $aiosp_noodp = false;
-				if ( ( $aiosp_noydir == 'on' ) || ( empty( $aiosp_noydir ) && ( !empty( $aioseop_options['aiosp_cpostnoydir'] ) && ( in_array( $post_type, $aioseop_options['aiosp_cpostnoydir'] ) ) ) ) )
+								    $aiosp_noodp = false;
+								if ( ( $aiosp_noydir == 'on' ) || ( empty( $aiosp_noydir ) && ( !empty( $aioseop_options['aiosp_cpostnoydir'] ) && ( in_array( $post_type, $aioseop_options['aiosp_cpostnoydir'] ) ) ) ) )
 					$aiosp_noydir = true;
-				else
-				    $aiosp_noydir = false;
+					else
+									    $aiosp_noydir = false;
 			}
 		}
 		if ( !empty( $aioseop_options['aiosp_noodp'] ) && $aioseop_options['aiosp_noodp'] )   $aiosp_noodp = true;
@@ -3597,10 +3689,7 @@ EOF;
 	function display_settings_footer( ) {
 	}
 
-	function display_right_sidebar( ) { ?>
-
-<?php
-/* <label class="aioseop_generic_label"><?php _e('Click on option titles to get help!', 'all-in-one-seo-pack' ); ?></label> */
+	function display_right_sidebar( ) {
 		global $wpdb;
 
 		if( !get_option( 'aioseop_options' ) ) {
@@ -3641,38 +3730,35 @@ EOF;
 				});
 				//]]>
 			</script>
-		<div class="aioseop_advert aioseop_nopad_all">
-				<?php $adid = mt_rand( 21, 23 );
+		<?php if ( !AIOSEOPPRO ) { ?>
+			<div class="aioseop_advert aioseop_nopad_all">
+					<?php $adid = mt_rand( 21, 23 );
 
-				 if($adid == 23){ ?><div style="height: 220px; background-image: url('https://www.wincher.com/Content/Images/plugin/wp/banner30.jpg')">
-					<form  style="position: relative; top: 170px; left: 40px;" action="https://www.wincher.com/FastReg" method="post" target="_blank">
-					<input type="hidden" name="adreferer" value="banner<?php echo $adid; ?>"/>
-					<input type="hidden" name="referer" value="all-in-one-seo-pack"/>
-					<input type="text" name="email" placeholder="Email" style="padding-left: 7px; height: 30px; width: 290px; border: solid 1px #DDD;"/>
-					<input type="submit" name="sub"  value="Sign up!" style="height: 30px; width: 90px; background-color: #42DA76; color: #FFF; font-weight: bold; border:none; margin-left:5px;"/>
-					</form></div>
-					<?
-				}else{
-				?>
-				<a href="https://www.wincher.com/?referer=all-in-one-seo-pack&adreferer=banner<?php echo $adid; ?>" target="_blank"><div class=wincherad id=wincher<?php echo $adid; ?>>
-			    </div></a>
-			<?php } ?>
-
-		</div>
-
-
-		<!-- Headway Themes-->
-		<div class="aioseop_advert headwaythemes">
-					<div>
-					<h3>Drag and Drop WordPress Design</h3>
-					<p><a href="http://semperfiwebdesign.com/headwayaio/" target="_blank">Headway Themes</a> allows you to easily create your own stunning website designs! Stop using premade themes start making your own design with Headway's easy to use Drag and Drop interface. All in One SEO Pack users have an exclusive discount by using coupon code <strong>SEMPERFI30</strong> at checkout.</p>
-					</div>
-				<a href="http://semperfiwebdesign.com/headwayaio/" target="_blank"><img src="<?php echo AIOSEOP_PLUGIN_IMAGES_URL; ?>headwaybanner.png"></a>
-		</div>
-
-
-	</div>
-</div>
-<?php
-	}
-}
+				 	if($adid == 23){ ?><div style="height: 220px; background-image: url('https://www.wincher.com/Content/Images/plugin/wp/banner30.jpg')">
+						<form  style="position: relative; top: 170px; left: 40px;" action="https://www.wincher.com/FastReg" method="post" target="_blank">
+							<input type="hidden" name="adreferer" value="banner<?php echo $adid; ?>"/>
+							<input type="hidden" name="referer" value="all-in-one-seo-pack"/>
+							<input type="text" name="email" placeholder="Email" style="padding-left: 7px; height: 30px; width: 290px; border: solid 1px #DDD;"/>
+							<input type="submit" name="sub"  value="Sign up!" style="height: 30px; width: 90px; background-color: #42DA76; color: #FFF; font-weight: bold; border:none; margin-left:5px;"/>
+							</form></div>
+							<?
+						}else{
+							?>
+							<a href="https://www.wincher.com/?referer=all-in-one-seo-pack&adreferer=banner<?php echo $adid; ?>" target="_blank"><div class=wincherad id=wincher<?php echo $adid; ?>>
+			    			</div></a>
+							<?php } ?>
+							</div>
+							<!-- Headway Themes-->
+								<div class="aioseop_advert headwaythemes">
+								<div>
+								<h3>Drag and Drop WordPress Design</h3>
+								<p><a href="http://semperfiwebdesign.com/headwayaio/" target="_blank">Headway Themes</a> allows you to easily create your own stunning website designs! Stop using premade themes start making your own design with Headway's easy to use Drag and Drop interface. All in One SEO Pack users have an exclusive discount by using coupon code <strong>SEMPERFI30</strong> at checkout.</p>
+								</div>
+								<a href="http://semperfiwebdesign.com/headwayaio/" target="_blank"><img src="<?php echo AIOSEOP_PLUGIN_IMAGES_URL; ?>headwaybanner.png"></a>
+								</div>
+								<?php } ?>
+								</div>
+								</div>
+								<?php
+							}
+						}
