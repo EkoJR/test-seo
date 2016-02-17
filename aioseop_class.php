@@ -3337,6 +3337,7 @@ EOF;
 		if ( $title === false )
 			$title = $this->get_original_title();
 
+		//if we're going to have this here, which seems logical, we should probably take it out of other places... do all titles pass through here?
 		if ( !empty( $aioseop_options['aiosp_cap_titles'] ) )
 			$title = $this->capitalize( $title );
 
