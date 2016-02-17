@@ -3336,6 +3336,10 @@ EOF;
 
 		if ( $title === false )
 			$title = $this->get_original_title();
+
+		if ( !empty( $aioseop_options['aiosp_cap_titles'] ) )
+			$title = $this->capitalize( $title );
+
 		return apply_filters( 'aioseop_title', $title );
 	}
 
