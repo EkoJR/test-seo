@@ -3795,9 +3795,9 @@ EOF;
 		}
 
 		if ( $custom_menu_order )
-			add_menu_page( $menu_name, $menu_name, 'manage_options', $file, Array( $this, 'display_settings_page' ) );
+			add_menu_page( $menu_name, $menu_name, apply_filters( 'manage_aiosp', 'manage_options' ) , $file, Array( $this, 'display_settings_page' ) );
 		else
-			add_utility_page( $menu_name, $menu_name, 'manage_options', $file, Array( $this, 'display_settings_page' ) );
+			add_utility_page( $menu_name, $menu_name, apply_filters( 'manage_aiosp', 'manage_options' ), $file, Array( $this, 'display_settings_page' ) );
 
 		add_meta_box('aioseop-list', __( "Join Our Mailing List", 'all-in-one-seo-pack' ), array( $this, 'display_extra_metaboxes'), 'aioseop_metaboxes', 'normal', 'core');
 		if ( AIOSEOPPRO ){
