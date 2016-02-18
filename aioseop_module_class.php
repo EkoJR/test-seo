@@ -1267,9 +1267,9 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		function enqueue_styles( ) {
 			wp_enqueue_style( 'thickbox' );
 			if ( !empty( $this->pointers ) ) wp_enqueue_style( 'wp-pointer' );
-			wp_enqueue_style(  'aioseop-module-style',  $this->plugin_path['url'] . 'aioseop_module.css' );
+			wp_enqueue_style(  'aioseop-module-style',  AIOSEOP_PLUGIN_URL . 'modules/aioseop_module.css' );
 			if ( function_exists( 'is_rtl' ) && is_rtl() )
-				wp_enqueue_style(  'aioseop-module-style-rtl',  $this->plugin_path['url'] . 'aioseop_module-rtl.css', array('aioseop-module-style') );
+				wp_enqueue_style(  'aioseop-module-style-rtl',  AIOSEOP_PLUGIN_URL . 'modules/aioseop_module-rtl.css', array('aioseop-module-style') );
 		}
 		
 		/**
@@ -1286,7 +1286,7 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			if ( !empty( $this->pointers ) ) {
 				wp_enqueue_script( 'wp-pointer', false, array( 'jquery' ) );
 			}
-			wp_enqueue_script( 'aioseop-module-script', $this->plugin_path['url'] . 'aioseop_module.js', Array(), AIOSEOP_VERSION );
+			wp_enqueue_script( 'aioseop-module-script', AIOSEOP_PLUGIN_URL . 'modules/aioseop_module.js', Array(), AIOSEOP_VERSION );
 			if ( !empty( $this->script_data ) ) {
 				aioseop_localize_script_data();
 			}
