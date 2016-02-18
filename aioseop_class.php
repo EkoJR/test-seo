@@ -2987,8 +2987,10 @@ EOF;
 			$name = '';
 		}
 		if ( empty( $name ) ) $name = single_term_title( '', false );
-		if ( ( $tax == 'category' ) && ( !empty( $aioseop_options['aiosp_cap_cats'] ) ) )
-				$name = $this->ucwords( $name );
+		//apparently we're already ucwordsing this elsewhere, and doing it a second time messes it up... why aren't we just doing this at the end??
+		//		if ( ( $tax == 'category' ) && ( !empty( $aioseop_options['aiosp_cap_cats'] ) ) )
+		//				$name = $this->ucwords( $name );
+
 		return $this->internationalize( $name );
 	}
 
