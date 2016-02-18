@@ -58,7 +58,7 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Module_Manager' ) ) {
 		// The global $aioseop_$module
 		// $this->modules[$module]
 		function do_load_module( $mod, $args = null ) {
-			$mod_path = apply_filters( "aioseop_include_$mod", AIOSEOP_PLUGIN_DIR . "aioseop_$mod.php" );
+			$mod_path = apply_filters( "aioseop_include_$mod", AIOSEOP_PLUGIN_DIR . "modules/aioseop_$mod.php" );
 			if ( !empty( $mod_path ) )
 				require_once( $mod_path );
 			$ref = "aioseop_$mod";
@@ -91,7 +91,7 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Module_Manager' ) ) {
 				return false;
 			$mod_enable = false;
 			$fm_page = ( $this->module_settings_update && wp_verify_nonce( $_POST['nonce-aioseop'], 'aioseop-nonce' ) && 
-				 		 isset($_REQUEST['page']) && $_REQUEST['page'] == trailingslashit( AIOSEOP_PLUGIN_DIRNAME ) . 'aioseop_feature_manager.php' );
+				 		 isset($_REQUEST['page']) && $_REQUEST['page'] == trailingslashit( AIOSEOP_PLUGIN_DIRNAME ) . 'modules/aioseop_feature_manager.php' );
 			if ( $fm_page && !$this->settings_reset ) {
 					if ( isset( $_POST["aiosp_feature_manager_enable_$mod"] ) )
 						$mod_enable = $_POST["aiosp_feature_manager_enable_$mod"];
