@@ -76,7 +76,18 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Bad_Robots' ) ) {
 		}
 		
 		function generate_htaccess_blocklist() {
-			if ( !$this->option_isset( 'htaccess_rules' ) ) return;
+			if ( !$this->option_isset( 'htaccess_rules' ) ) {
+
+				if ( insert_with_markers( get_home_path() . '.htaccess', $this->name, '' ) ) {
+					aioseop_output_notice( __( "Updated .htaccess rules.", 'all-in-one-seo-pack' ) );
+				} else {
+					aioseop_output_notice( __( "Failed to update .htaccess rules!", 'all-in-one-seo-pack' ), "", "error" );
+				}
+				
+				return;
+				
+			}
+
 			if ( function_exists( 'apache_get_modules' ) ) {
 				$modules = apache_get_modules();
 				foreach( Array( 'mod_authz_host', 'mod_setenvif' ) as $m ) {
