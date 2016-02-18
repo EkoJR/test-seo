@@ -117,7 +117,7 @@ if ( is_array( $aioseop_options ) && isset( $aioseop_options['modules'] ) && iss
 		$aioseop_mem_limit = AIOSEOP_BASELINE_MEM_LIMIT;
 }
 
-function aioadd_theme_caps() {
+function aioadd_magageseo_caps() {
     $role = get_role( 'administrator' );
     $role->add_cap( 'aiosp_manage_seo' );
 }

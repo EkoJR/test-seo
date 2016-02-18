@@ -67,7 +67,7 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Module_Manager' ) ) {
 			$module_class = new $classname( $args );
 			$GLOBALS[$ref] = $module_class;
 			$this->modules[$mod] = $module_class;
-			if ( is_user_logged_in() && function_exists( 'is_admin_bar_showing' ) && is_admin_bar_showing() && current_user_can( 'manage_options' ) )
+			if ( is_user_logged_in() && function_exists( 'is_admin_bar_showing' ) && is_admin_bar_showing() && current_user_can( 'aiosp_manage_seo' ) )
 					add_action( 'admin_bar_menu', array( $module_class, 'add_admin_bar_submenu' ), 1001 + $module_class->menu_order() );
 			if ( is_admin() ) {
 				add_action( 'aioseop_modules_add_menus', Array( $module_class, 'add_menu' ), $module_class->menu_order() );

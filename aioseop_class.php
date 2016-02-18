@@ -1688,7 +1688,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		global $aioseop_options, $aioseop_update_checker;
 		aioseop_update_settings_check();
 		add_filter( 'user_contactmethods', 'aioseop_add_contactmethods' );
-		if ( is_user_logged_in() && function_exists( 'is_admin_bar_showing' ) && is_admin_bar_showing() && current_user_can( 'manage_options' ) )
+		if ( is_user_logged_in() && function_exists( 'is_admin_bar_showing' ) && is_admin_bar_showing() && current_user_can( 'aiosp_manage_seo' ) )
 				add_action( 'admin_bar_menu', array( $this, 'admin_bar_menu' ), 1000 );
 
 		if ( is_admin() ) {
@@ -2190,7 +2190,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 	}
 
 	function oauth_init() {
-		if ( !is_user_logged_in() || !current_user_can( 'manage_options' ) ) return false;
+		if ( !is_user_logged_in() || !current_user_can( 'aiosp_manage_seo' ) ) return false;
 		$this->token = "anonymous";
 		$this->secret = "anonymous";
 		$preload = $this->get_class_option();
