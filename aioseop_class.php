@@ -1457,7 +1457,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			} elseif ( !empty( $current["{$prefix}togglekeywords"] ) ) {
 				unset( $settings["{$prefix}keywords"] );
 			}
-			if ( !( !empty( $this->options['aiosp_can'] ) ) && ( !empty( $this->options['aiosp_customize_canonical_links'] ) ) ) {
+			if ( empty( $this->options['aiosp_can'] ) || ( empty( $this->options['aiosp_customize_canonical_links'] ) ) ) {
 				unset( $settings["{$prefix}custom_link"] );
 			}
 		}
