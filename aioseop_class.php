@@ -1959,7 +1959,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		} else if ( is_single() || is_page() || is_attachment() || is_home() || $this->is_static_posts_page() ) {
 			$description = $this->get_aioseop_description( $post );
 		} else if ( ( is_category() || is_tag() || is_tax() ) && $this->show_page_description() ) {
-		//	if ( !empty( $opts ) ) $description = $opts['aiosp_description'];
+			if ( !empty( $opts ) ) $description = $opts['aiosp_description']; //why did we comment this out in pro revision 70? doing so breaks desc for tax (cat) pages
 			if ( empty( $description ) ) $description = term_description();
 			$description = $this->internationalize( $description );
 		}
