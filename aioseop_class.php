@@ -3614,7 +3614,12 @@ EOF;
 
 	function admin_bar_menu() {
 		global $wp_admin_bar, $aioseop_admin_menu, $aioseop_options, $post;
-		if ( !empty( $aioseop_options['aiosp_admin_bar'] ) ) {
+		
+		$toggle = '';
+		if ( isset($_POST['aiosp_use_original_title']) && isset($_POST['aiosp_admin_bar']) ) $toggle = 'on';
+		if ( isset($_POST['aiosp_use_original_title']) && !isset($_POST['aiosp_admin_bar']) ) $toggle = 'off';
+
+		if ( !empty( $aioseop_options['aiosp_admin_bar'] ) && $toggle != 'off' || isset($_POST['aiosp_admin_bar']) ) {
 			$menu_slug = plugin_basename( __FILE__ );
 
 			$url = '';
@@ -3632,7 +3637,7 @@ EOF;
 				if ( !empty( $blog_page ) ) $post = $blog_page;
 				$wp_admin_bar->add_menu( array( 'id' => 'aiosp_edit_' . $post->ID, 'parent' => AIOSEOP_PLUGIN_DIRNAME, 'title' => __( 'Edit SEO', 'all-in-one-seo-pack' ), 'href' => get_edit_post_link( $post->ID ) . '#aiosp' ) );
 			}
-		}
+		} 
 	}
 
 	function admin_bar_upgrade_menu() {
