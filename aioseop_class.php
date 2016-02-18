@@ -496,7 +496,8 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 				),
 			"posttypecolumns" => Array(
 				'name' => __( 'Show Column Labels for Custom Post Types:', 'all-in-one-seo-pack' ),
-				'type' => 'multicheckbox', 'default' =>  array('post', 'page') ),
+				'type' => 'multicheckbox', 'default' =>  array('post', 'page'),
+				'condshow' => Array( 'aiosp_enablecpost' => 'on' ) ),
 			"admin_bar" => Array(
 				'name' => __( 'Display Menu In Admin Bar:', 'all-in-one-seo-pack' ), 'default' => 'on',
 				),
@@ -1150,17 +1151,29 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 	}
 
 	function add_page_hooks() {
+		global $aioseop_options;
 //		$this->oauth_init();
 		$post_objs = get_post_types( '', 'objects' );
 		$pt = array_keys( $post_objs );
 		$rempost = array( 'revision', 'nav_menu_item' );
 		$pt = array_diff( $pt, $rempost );
 		$post_types = Array();
+		$default_posttypes = Array('Posts','Pages','Media');
+
+		$aiosp_enablecpost = '';
+		if (isset($_REQUEST['aiosp_enablecpost'])) $aiosp_enablecpost = $_REQUEST['aiosp_enablecpost'];
+
 		foreach ( $pt as $p ) {
-			if ( !empty( $post_objs[$p]->label ) )
+			if ( !empty( $post_objs[$p]->label ) ){
+				if (in_array($post_objs[$p]->label,$default_posttypes) && empty( $aioseop_options['aiosp_enablecpost'] )){
 				$post_types[$p] = $post_objs[$p]->label;
-			else
+			}elseif (!empty( $aioseop_options['aiosp_enablecpost'] )  || $aiosp_enablecpost == 'on' ) {
+				$post_types[$p] = $post_objs[$p]->label;
+			}
+			}
+			else{
 				$post_types[$p] = $p;
+			}
 		}
 		$taxes = get_taxonomies( '', 'objects' );
 		$tx = array_keys( $taxes );
@@ -1248,13 +1261,13 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		}
 		$this->setting_options();
 		$this->add_help_text_links();
-		
+
 		if (AIOSEOPPRO){
 		global $aioseop_update_checker;
 		add_action( "{$this->prefix}update_options", Array( $aioseop_update_checker, 'license_change_check' ), 10, 2 );
 		add_action( "{$this->prefix}settings_update", Array( $aioseop_update_checker, 'update_check' ), 10, 2 );
 		}
-		
+
 		add_filter( "{$this->prefix}display_options", Array( $this, 'filter_options' ), 10, 2 );
 		parent::add_page_hooks();
 	}
@@ -1363,7 +1376,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 				unset( $optlist["custom_link"] );
 			}
 			foreach ( $optlist as $f ) {
-				
+
 				if ( AIOSEOPPRO ) {
 				$meta = '';
 				$field = "aiosp_$f";
@@ -1519,7 +1532,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		    case "aioseop-donate":
 		        ?>
 				<div>
-				
+
 				<?php if ( !AIOSEOPPRO ) { ?>
 					<div class="aioseop_metabox_text">
 						<p>If you like this plugin and find it useful, help keep this plugin free and actively developed by clicking the <a 				href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=mrtorbert%40gmail%2ecom&item_name=All%20In%20One%20SEO%20Pack&item_number=Support%20Open%20Source&no_shipping=0&no_note=1&tax=0&currency_code=USD&lc=US&bn=PP%2dDonationsBF&charset=UTF%2d8"
@@ -1919,7 +1932,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 					$nofollow = "no" . $nofollow;
 				if ( ( $aiosp_noodp == 'on' ) || ( empty( $aiosp_noodp ) && ( !empty( $aioseop_options['aiosp_cpostnoodp'] ) && ( in_array( $post_type, $aioseop_options['aiosp_cpostnoodp'] ) ) ) ) )
 					$aiosp_noodp = true;
-				else 
+				else
 					$aiosp_noodp = false;
 				if ( ( $aiosp_noydir == 'on' ) || ( empty( $aiosp_noydir ) && ( !empty( $aioseop_options['aiosp_cpostnoydir'] ) && ( in_array( $post_type, $aioseop_options['aiosp_cpostnoydir'] ) ) ) ) )
 					$aiosp_noydir = true;
@@ -3616,7 +3629,7 @@ EOF;
 
 	function admin_bar_menu() {
 		global $wp_admin_bar, $aioseop_admin_menu, $aioseop_options, $post;
-		
+
 		$toggle = '';
 		if ( isset($_POST['aiosp_use_original_title']) && isset($_POST['aiosp_admin_bar']) ) $toggle = 'on';
 		if ( isset($_POST['aiosp_use_original_title']) && !isset($_POST['aiosp_admin_bar']) ) $toggle = 'off';
@@ -3639,7 +3652,7 @@ EOF;
 				if ( !empty( $blog_page ) ) $post = $blog_page;
 				$wp_admin_bar->add_menu( array( 'id' => 'aiosp_edit_' . $post->ID, 'parent' => AIOSEOP_PLUGIN_DIRNAME, 'title' => __( 'Edit SEO', 'all-in-one-seo-pack' ), 'href' => get_edit_post_link( $post->ID ) . '#aiosp' ) );
 			}
-		} 
+		}
 	}
 
 	function admin_bar_upgrade_menu() {
@@ -3759,7 +3772,7 @@ EOF;
 
 		$this->filter_pointers();
 		}
-		
+
 		if ( !empty( $this->options['aiosp_enablecpost'] ) && $this->options['aiosp_enablecpost'] ) {
 			if ( AIOSEOPPRO ) {
 			$this->locations['aiosp']['display'] = $this->options['aiosp_cpostactive'];
