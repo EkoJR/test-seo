@@ -58,8 +58,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		else
 			$this->do_log = false;
 
-		$this->init();
-
 		$this->name = sprintf( __( '%s Plugin Options', 'all-in-one-seo-pack' ), AIOSEOP_PLUGIN_NAME );
 		$this->menu_name = __( 'General Settings', 'all-in-one-seo-pack' );
 
@@ -1674,14 +1672,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 
 	function output_callback_for_title( $content ) {
 		return $this->rewrite_title( $content );
-	}
-
-	function init() {
-		if ( !defined( 'WP_PLUGIN_DIR' ) ) {
-			load_plugin_textdomain( 'all-in-one-seo-pack', str_replace( ABSPATH, '', dirname( __FILE__ ) ) );
-		} else {
-			load_plugin_textdomain( 'all-in-one-seo-pack', false, AIOSEOP_PLUGIN_DIRNAME );
-		}
 	}
 
 	function add_hooks() {
