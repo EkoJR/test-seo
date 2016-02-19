@@ -272,6 +272,7 @@ function  sfwd_action_links ( $actions, $plugin_file,  $action_links = array(), 
 if ( !function_exists( 'aioseop_init_class' ) ) {
 	function aioseop_init_class() {
 		global $aiosp;
+		load_plugin_textdomain( 'all-in-one-seo-pack', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 		require_once( AIOSEOP_PLUGIN_DIR . 'aioseop_functions.php' );
 		require_once( AIOSEOP_PLUGIN_DIR . 'aioseop_class.php' );
 		
@@ -285,7 +286,7 @@ if ( !function_exists( 'aioseop_init_class' ) ) {
 		if ( aioseop_option_isset( 'aiosp_unprotect_meta' ) )
 			add_filter( 'is_protected_meta', 'aioseop_unprotect_meta', 10, 3 );
 		
-		load_plugin_textdomain( 'all-in-one-seo-pack', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+
 
 
 		add_action( 'init', array( $aiosp, 'add_hooks' ) );
