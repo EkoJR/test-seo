@@ -1401,7 +1401,7 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			else
 				$name = $this->name;
 			if ( $this->locations === null ) {
-				$hookname = add_submenu_page( $parent_slug, $name, $name, apply_filters( 'manage_aiosp', 'manage_options' ), plugin_basename( $this->file ), Array( $this, 'display_settings_page' ) );
+				$hookname = add_submenu_page( $parent_slug, $name, $name, apply_filters( 'manage_aiosp', 'aiosp_manage_seo' ), plugin_basename( $this->file ), Array( $this, 'display_settings_page' ) );
 				add_action( "load-{$hookname}", Array( $this, 'add_page_hooks' ) );
 				return true;
 			}
@@ -1412,13 +1412,13 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 							$name = $this->menu_name;
 						else
 							$name = $this->name;
-						$hookname = add_submenu_page( $parent_slug, $name, $name, apply_filters( 'manage_aiosp', 'manage_options' ), plugin_basename( $this->file ), Array( $this, 'display_settings_page' ) );
+						$hookname = add_submenu_page( $parent_slug, $name, $name, apply_filters( 'manage_aiosp', 'aiosp_manage_seo' ), plugin_basename( $this->file ), Array( $this, 'display_settings_page' ) );
 					} else {
 						if ( !empty( $v['menu_name'] ) )
 							$name = $v['menu_name'];
 						else
 							$name = $v['name'];
-						$hookname = add_submenu_page( $parent_slug, $name, $name, apply_filters( 'manage_aiosp', 'manage_options' ), $this->get_prefix( $k ) . $k, Array( $this, "display_settings_page_$k" ) );
+						$hookname = add_submenu_page( $parent_slug, $name, $name, apply_filters( 'manage_aiosp', 'aiosp_manage_seo' ), $this->get_prefix( $k ) . $k, Array( $this, "display_settings_page_$k" ) );
 					}
 					add_action( "load-{$hookname}", Array( $this, 'add_page_hooks' ) );
 				} elseif ( $v['type'] === 'metabox' ) {

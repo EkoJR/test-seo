@@ -117,13 +117,6 @@ if ( is_array( $aioseop_options ) && isset( $aioseop_options['modules'] ) && iss
 		$aioseop_mem_limit = AIOSEOP_BASELINE_MEM_LIMIT;
 }
 
-function aioadd_magageseo_caps() {
-    $role = get_role( 'administrator' );
-    $role->add_cap( 'aiosp_manage_seo' );
-}
-
-add_action( 'admin_init', 'aioadd_magageseo_caps');
-
 if ( !empty( $aioseop_mem_limit ) ) {
 	if ( !is_int( $aioseop_mem_limit ) )
 		$aioseop_mem_limit = aioseop_convert_bytestring( $aioseop_mem_limit );
@@ -173,6 +166,10 @@ $aioseop_update_checker->addQueryArgFilter( Array( $aioseop_update_checker, 'add
  */
 if ( !function_exists( 'aioseop_activate' ) ) {
 	function aioseop_activate() {
+		
+	$role = get_role( 'administrator' );
+    $role->add_cap( 'aiosp_manage_seo' );
+		
 	  global $aiosp_activation;
 	  if ( AIOSEOPPRO ){
 		global $aioseop_update_checker;
