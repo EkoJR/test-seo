@@ -275,6 +275,7 @@ if ( !function_exists( 'aioseop_init_class' ) ) {
 		load_plugin_textdomain( 'all-in-one-seo-pack', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 		require_once( AIOSEOP_PLUGIN_DIR . 'aioseop_functions.php' );
 		require_once( AIOSEOP_PLUGIN_DIR . 'aioseop_class.php' );
+		require_once( AIOSEOP_PLUGIN_DIR . 'inc/commonstrings.php');
 		
 		if( AIOSEOPPRO ){
 			require_once( AIOSEOP_PLUGIN_DIR . '/pro/functions_general.php' );
