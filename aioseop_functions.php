@@ -153,7 +153,7 @@ if ( !function_exists( 'aioseop_mrt_pcolumns' ) ) {
 
 if ( !function_exists( 'aioseop_admin_head' ) ) {
 	function aioseop_admin_head() {
-		echo '<script type="text/javascript" src="' . AIOSEOP_PLUGIN_URL . 'quickedit_functions.js" ></script>';
+		echo '<script type="text/javascript" src="' . AIOSEOP_PLUGIN_URL . 'js/quickedit_functions.js" ></script>';
 		?><style>
 		.aioseop_edit_button {
 			margin: 0 0 0 5px;

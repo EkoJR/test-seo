@@ -138,7 +138,7 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			
 			if ( $charset == 'UTF-8' ) {
 				global $UTF8_TABLES;
-				include_once( 'aioseop_utility.php' );
+				include_once( AIOSEOP_PLUGIN_DIR . 'inc/aioseop_UTF8.php' );
 				if ( is_array( $UTF8_TABLES ) ) {
 					if ( $mode == 'upper' ) return strtr( $str, $UTF8_TABLES['strtoupper'] );
 					if ( $mode == 'lower' ) return strtr( $str, $UTF8_TABLES['strtolower'] );
@@ -1267,9 +1267,9 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		function enqueue_styles( ) {
 			wp_enqueue_style( 'thickbox' );
 			if ( !empty( $this->pointers ) ) wp_enqueue_style( 'wp-pointer' );
-			wp_enqueue_style(  'aioseop-module-style',  AIOSEOP_PLUGIN_URL . 'modules/aioseop_module.css' );
+			wp_enqueue_style(  'aioseop-module-style',  AIOSEOP_PLUGIN_URL . 'css/modules/aioseop_module.css' );
 			if ( function_exists( 'is_rtl' ) && is_rtl() )
-				wp_enqueue_style(  'aioseop-module-style-rtl',  AIOSEOP_PLUGIN_URL . 'modules/aioseop_module-rtl.css', array('aioseop-module-style') );
+				wp_enqueue_style(  'aioseop-module-style-rtl',  AIOSEOP_PLUGIN_URL . 'css/modules/aioseop_module-rtl.css', array('aioseop-module-style') );
 		}
 		
 		/**
