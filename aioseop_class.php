@@ -1982,7 +1982,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 	}
 
 	function apply_description_format( $description, $post = null ) {
-		global $aioseop_options, $wp_query;
+		global $aioseop_options;
 		$description_format = $aioseop_options['aiosp_description_format'];
 		if ( !isset( $description_format ) || empty( $description_format ) ) {
 			$description_format = "%description%";
@@ -1992,7 +1992,20 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		if ( strpos( $description, '%blog_description%'	) !== false ) $description = str_replace( '%blog_description%',	get_bloginfo( 'description' ), $description );
 		if ( strpos( $description, '%wp_title%'			) !== false ) $description = str_replace( '%wp_title%',			$this->get_original_title(), $description );
 		if ( strpos( $description, '%post_title%'		) !== false ) $description = str_replace( '%post_title%',		$this->get_aioseop_title( $post ), $description );
-		if( $aioseop_options['aiosp_can'] && is_attachment() ) {
+
+
+		/*this was intended to make attachment descriptions unique if pulling from the parent... let's remove it and see if there are any problems
+		*on the roadmap is to have a better hierarchy for attachment description pulling
+		* if ($aioseop_options['aiosp_can']) $description = $this->make_unique_att_desc($description);
+		*/
+
+		return $description;
+	}
+
+	function make_unique_att_desc($description){
+		global $wp_query;
+		if( is_attachment() ) {
+			
 			$url = $this->aiosp_mrt_get_url( $wp_query );
 			if ( $url ) {
 				$matches = Array();
@@ -2002,8 +2015,8 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 				}
 			}
 			$description .= ' ' . $uniqueDesc;
+					return $description;
 		}
-		return $description;
 	}
 
 	function get_main_keywords() {
