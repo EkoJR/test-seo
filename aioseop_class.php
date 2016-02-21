@@ -1554,7 +1554,13 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 
 					<a target="_blank" title="<?php _e( 'Follow us on Facebook', 'all-in-one-seo-pack' ); ?>" href="http://www.facebook.com/pages/Semper-Fi-Web-Design/121878784498475"><span class="aioseop_follow_button aioseop_facebook_follow"></span></a>
 					<a target="_blank" title="<?php _e( 'Follow us on Twitter', 'all-in-one-seo-pack' ); ?>" href="http://twitter.com/semperfidev/"><span class="aioseop_follow_button aioseop_twitter_follow"></span></a>
+					</div><?php if(get_locale() != 'en_US'){ ?>
+					<div><strong>
+					<a target="_blank" title="translate" href="https://translate.wordpress.org/projects/wp-plugins/all-in-one-seo-pack">
+					<?php _e( 'We need your help translating All in One SEO Pack into your language! Click Here to help make the translation complete and fix any errors.' , 'all-in-one-seo-pack' );  ?>
+					</a></strong>
 					</div>
+					<?php } ?>
 				</div>
 		        <?php
 		        break;
