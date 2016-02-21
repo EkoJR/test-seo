@@ -278,8 +278,8 @@ if ( !function_exists( 'aioseop_init_class' ) ) {
 		require_once( AIOSEOP_PLUGIN_DIR . 'inc/commonstrings.php');
 		
 		if( AIOSEOPPRO ){
-			require_once( AIOSEOP_PLUGIN_DIR . '/pro/functions_general.php' );
-			require_once( AIOSEOP_PLUGIN_DIR . '/pro/functions_class.php');
+			require_once( AIOSEOP_PLUGIN_DIR . 'pro/functions_general.php' );
+			require_once( AIOSEOP_PLUGIN_DIR . 'pro/functions_class.php');
 		}
 
 		$aiosp = new All_in_One_SEO_Pack();
