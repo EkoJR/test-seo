@@ -5,7 +5,7 @@
 /**
  * Include the module base class.
  */
-require_once( 'aioseop_module_class.php' );
+require_once( AIOSEOP_PLUGIN_DIR . 'admin/aioseop_module_class.php' );
 /**
  * The main class.
  */
@@ -2321,7 +2321,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 	}
 
 	function oauth_get_data( $oauth_url, $args = null ) {
-		if ( !class_exists( 'OAuthConsumer' ) ) require_once( AIOSEOP_PLUGIN_DIR . 'inc/OAuth.php' );
+		if ( !class_exists( 'OAuthConsumer' ) ) require_once( AIOSEOP_PLUGIN_DIR . 'inc/extlib/OAuth.php' );
 		if ( $args === null ) $args = Array( 'scope' => 'https://www.googleapis.com/auth/analytics.readonly', 'xoauth_displayname' => AIOSEOP_PLUGIN_NAME . ' ' . __('Google Analytics', 'all-in-one-seo-pack' ) );
 		$req_token = new OAuthConsumer( $this->token, $this->secret );
 		$req = $this->oauth_get_creds( $oauth_url, $req_token, $args );
@@ -2329,7 +2329,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 	}
 
 	function oauth_get_creds( $oauth_url, $req_token = NULL, $args = Array(), $callback = null ) {
-		if ( !class_exists( 'OAuthConsumer' ) ) require_once( AIOSEOP_PLUGIN_DIR . 'inc/OAuth.php' );
+		if ( !class_exists( 'OAuthConsumer' ) ) require_once( AIOSEOP_PLUGIN_DIR . 'inc/extlib/OAuth.php' );
 		if ( !empty( $callback ) ) $args['oauth_callback'] = $callback;
 		if ( empty( $this->sig_method ) ) $this->sig_method = new OAuthSignatureMethod_HMAC_SHA1();
 		if ( empty( $this->consumer ) )   $this->consumer = new OAuthCOnsumer( 'anonymous', 'anonymous' );
@@ -2339,7 +2339,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 	}
 
 	function oauth_get_token( $oauth_verifier ) {
-		if ( !class_exists( 'OAuthConsumer' ) ) require_once( AIOSEOP_PLUGIN_DIR . 'inc/OAuth.php' );
+		if ( !class_exists( 'OAuthConsumer' ) ) require_once( AIOSEOP_PLUGIN_DIR . 'inc/extlib/OAuth.php' );
 		$args = Array( 'scope' => 'https://www.google.com/analytics/feeds/', 'xoauth_displayname' => AIOSEOP_PLUGIN_NAME . ' ' . __('Google Analytics', 'all-in-one-seo-pack' ) );
 		$args['oauth_verifier'] = $oauth_verifier;
 		$oauth_access_token = "https://www.google.com/accounts/OAuthGetAccessToken";
@@ -2350,7 +2350,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 
 	function oauth_connect( $count = 0 ) {
 		global $aiosp_activation;
-		if ( !class_exists( 'OAuthConsumer' ) ) require_once( AIOSEOP_PLUGIN_DIR . 'inc/OAuth.php' );
+		if ( !class_exists( 'OAuthConsumer' ) ) require_once( AIOSEOP_PLUGIN_DIR . 'inc/extlib/OAuth.php' );
 		$url = '';
 		$callback_url = NULL;
 		$consumer_key = "anonymous";

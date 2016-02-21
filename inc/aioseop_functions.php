@@ -8,7 +8,7 @@
 if (!function_exists('aioseop_load_modules')) {
 	function aioseop_load_modules() {
 		global $aioseop_modules, $aioseop_module_list;
-	 	require_once( AIOSEOP_PLUGIN_DIR . 'aioseop_module_manager.php' );
+	 	require_once( AIOSEOP_PLUGIN_DIR . 'admin/aioseop_module_manager.php' );
 	 	$aioseop_modules = new All_in_One_SEO_Pack_Module_Manager( apply_filters( 'aioseop_module_list', $aioseop_module_list ) );
 	 	$aioseop_modules->load_modules();
 	}
@@ -722,7 +722,7 @@ if ( !function_exists( 'aioseop_load_json_services' ) ) {
 	function aioseop_load_json_services() {
 		static $services_json = null;
 		if ( $services_json ) return $services_json;
-		if ( !class_exists( 'Services_JSON' ) ) require_once( 'JSON.php' );
+		if ( !class_exists( 'Services_JSON' ) ) require_once( 'inc/extlib/JSON.php' );
 		if ( !$services_json ) $services_json = new Services_JSON();
 		return $services_json;
 	}

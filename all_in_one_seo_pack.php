@@ -140,7 +140,7 @@ if ( class_exists( 'All_in_One_SEO_Pack' ) ) {
 
 if ( AIOSEOPPRO ){
 	
-	require 'sfwd_update_checker.php';
+	require( AIOSEOP_PLUGIN_DIR . 'pro/sfwd_update_checker.php');
 	$aioseop_update_checker = new SFWD_Update_Checker(
 	        'http://semperplugins.com/upgrade_plugins.php',
 	        __FILE__,
@@ -273,7 +273,7 @@ if ( !function_exists( 'aioseop_init_class' ) ) {
 	function aioseop_init_class() {
 		global $aiosp;
 		load_plugin_textdomain( 'all-in-one-seo-pack', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-		require_once( AIOSEOP_PLUGIN_DIR . 'aioseop_functions.php' );
+		require_once( AIOSEOP_PLUGIN_DIR . 'inc/aioseop_functions.php' );
 		require_once( AIOSEOP_PLUGIN_DIR . 'aioseop_class.php' );
 		require_once( AIOSEOP_PLUGIN_DIR . 'inc/commonstrings.php');
 		
