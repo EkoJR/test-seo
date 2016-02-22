@@ -1377,23 +1377,32 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			foreach ( $optlist as $f ) {
 
 				if ( AIOSEOPPRO ) {
-				$meta = '';
-				$field = "aiosp_$f";
-				if ( ( isset( $_GET['taxonomy'] ) && isset( $_GET['tag_ID'] ) ) || is_category() || is_tag() || is_tax() ) {
-					if ( is_admin() && isset( $_GET['tag_ID'] ) ) {
-						$meta = get_term_meta( $_GET['tag_ID'], '_aioseop_' . $f, true );
-					} else {
-						$queried_object = get_queried_object();
-						if ( !empty( $queried_object ) && !empty( $queried_object->term_id ) ) {
-							$meta = get_term_meta( $queried_object->term_id, '_aioseop_' . $f, true );
+					$meta = '';
+					$field = "aiosp_$f";
+					if ( ( isset( $_GET['taxonomy'] ) && isset( $_GET['tag_ID'] ) ) || is_category() || is_tag() || is_tax() ) {
+						if ( is_admin() && isset( $_GET['tag_ID'] ) ) {
+							$meta = get_term_meta( $_GET['tag_ID'], '_aioseop_' . $f, true );
+						} else {
+							$queried_object = get_queried_object();
+							if ( !empty( $queried_object ) && !empty( $queried_object->term_id ) ) {
+								$meta = get_term_meta( $queried_object->term_id, '_aioseop_' . $f, true );
+							}
 						}
+					} else 
+						$meta = get_post_meta( $post_id, '_aioseop_' . $f, true );
+					if ($field === 'title') {
+						$get_opts[$field] = htmlspecialchars( ( $meta ) );
+					} else {
+						$get_opts[$field] = htmlspecialchars( stripslashes( $meta ) );
 					}
-				} else $meta = get_post_meta( $post_id, '_aioseop_' . $f, true );
-				$get_opts[$field] = htmlspecialchars( stripslashes( $meta ) );
 				} else {
 					$field = "aiosp_$f";
 					$meta = get_post_meta( $post_id, '_aioseop_' . $f, true );
-					$get_opts[$field] = htmlspecialchars( stripslashes( $meta ) );
+					if ($field === 'title') {
+						$get_opts[$field] = htmlspecialchars( ( $meta ) );
+					} else {
+						$get_opts[$field] = htmlspecialchars( stripslashes( $meta ) );
+					}
 				}
 
 			}
@@ -2628,7 +2637,6 @@ EOF;
 		$title = trim( strip_tags( $title ) );
 		$title_tag_start = "<title";
 		$title_tag_end = "</title";
-		$title = stripslashes( trim( $title ) );
 		$start = $this->strpos( $content, $title_tag_start );
 		$end = $this->strpos( $content, $title_tag_end );
 		$this->title_start = $start;
