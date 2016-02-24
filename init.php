@@ -142,8 +142,6 @@ if ( !function_exists( 'aioseop_activate' ) ) {
 	}
 }
 
-register_activation_hook( __FILE__, 'aioseop_activate' );
-
 add_action( 'plugins_loaded', 'aioseop_init_class' );
 add_filter( 'plugin_action_links', 'sfwd_add_action_links', 10, 5 );
 add_filter( 'plugin_row_meta',     'sfwd_plugin_row_meta', 10, 2 );

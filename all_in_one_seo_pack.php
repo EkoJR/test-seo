@@ -42,3 +42,9 @@ if ( ! defined( 'AIOSEOP_PLUGIN_NAME' ) ) define( 'AIOSEOP_PLUGIN_NAME', $aioseo
 if ( ! defined( 'AIOSEOP_VERSION' ) ) define( 'AIOSEOP_VERSION', '2.3a' );
 
 require_once( 'init.php' );
+
+register_activation_hook( __FILE__, 'aiosp_install' );
+
+function aiosp_install(){
+	aioseop_activate();
+}
