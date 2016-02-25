@@ -1395,7 +1395,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 					} else {
 						$get_opts[$field] = htmlspecialchars( stripslashes( $meta ) );
 					}
-				} else {
+				} elseif ( is_singular()  || is_admin() ) {
 					$field = "aiosp_$f";
 					$meta = get_post_meta( $post_id, '_aioseop_' . $f, true );
 					if ($field === 'title') {
@@ -1919,8 +1919,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		 	|| ( is_404() && !empty( $aioseop_options['aiosp_404_noindex'] ) )
 			|| ( is_tax() && in_array( get_query_var( 'taxonomy' ), $tax_noindex ) ) ) {
 				$noindex = 'noindex';
-		} 
-		if ( ( is_single() || is_page() || $this->is_static_posts_page() || is_attachment() || is_category() || is_tag() || is_tax() || ( $page > 1 ) ) ) {
+		} elseif ( ( is_single() || is_page() || $this->is_static_posts_page() || is_attachment() || is_category() || is_tag() || is_tax() || ( $page > 1 ) ) ) {
 			$post_type = get_post_type();
 			if ( !empty( $opts ) ) {
 			    $aiosp_noindex = htmlspecialchars( stripslashes( $opts['aiosp_noindex'] ) );
