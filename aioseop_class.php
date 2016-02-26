@@ -1375,11 +1375,11 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 				unset( $optlist["custom_link"] );
 			}
 			foreach ( $optlist as $f ) {
+				$meta = '';
+				$field = "aiosp_$f";
 
-				if ( AIOSEOPPRO ) {
-					$meta = '';
-					$field = "aiosp_$f";
-					if ( ( isset( $_GET['taxonomy'] ) && isset( $_GET['tag_ID'] ) ) || is_category() || is_tag() || is_tax() ) {
+				if ( ( isset( $_GET['taxonomy'] ) && isset( $_GET['tag_ID'] ) ) || is_category() || is_tag() || is_tax() ) {
+					if ( AIOSEOPPRO ) {
 						if ( is_admin() && isset( $_GET['tag_ID'] ) ) {
 							$meta = get_term_meta( $_GET['tag_ID'], '_aioseop_' . $f, true );
 						} else {
@@ -1388,21 +1388,13 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 								$meta = get_term_meta( $queried_object->term_id, '_aioseop_' . $f, true );
 							}
 						}
-					} else 
-						$meta = get_post_meta( $post_id, '_aioseop_' . $f, true );
-					if ($field === 'title') {
-						$get_opts[$field] = htmlspecialchars( ( $meta ) );
-					} else {
-						$get_opts[$field] = htmlspecialchars( stripslashes( $meta ) );
 					}
-				} elseif ( is_singular()  || is_admin() ) {
-					$field = "aiosp_$f";
+				} elseif ( is_singular() || is_admin() ) 
 					$meta = get_post_meta( $post_id, '_aioseop_' . $f, true );
-					if ($field === 'title') {
-						$get_opts[$field] = htmlspecialchars( ( $meta ) );
-					} else {
-						$get_opts[$field] = htmlspecialchars( stripslashes( $meta ) );
-					}
+				if ($field === 'title') {
+					$get_opts[$field] = htmlspecialchars( ( $meta ) );
+				} else {
+					$get_opts[$field] = htmlspecialchars( stripslashes( $meta ) );
 				}
 
 			}
