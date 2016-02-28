@@ -223,7 +223,10 @@ div.aioseop_feature {
 }
 
 div.aioseop_notice a.aioseop_dismiss_link {
-	left: 10px
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	text-align: left;
 }
 
 /*
