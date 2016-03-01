@@ -1,6 +1,6 @@
 <?php
 
-	class AIOSEOP_CommonStrings {
+	class aiosp_common_strings {
 
 		function __construct( ){
 			

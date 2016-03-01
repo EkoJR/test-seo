@@ -65,7 +65,6 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Feature_Manager' ) ) {
 
 			foreach ( $mod  as $m ) {
 				if ( $m == 'performance' && !is_super_admin() ) continue;
-				$module_name = ucwords( strtr( $m, '_', ' ' ) );
 				$this->default_options["enable_$m"] = Array( 'name'		 => $this->module_info[$m]['name'],
 				 											 'help_text' => $this->module_info[$m]['description'],
 				 											 'type'		 => 'custom',
@@ -99,7 +98,7 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Feature_Manager' ) ) {
 			return 20;
 		}
 
-		function filter_submit( $submit, $location = null ) {
+		function filter_submit( $submit ) {
 			$submit['Submit']['value'] = __( 'Update Features', 'all-in-one-seo-pack' )  . ' &raquo;';
 			$submit['Submit']['class'] .= " hidden";
 			$submit['Submit_Default']['value'] = __( 'Reset Features', 'all-in-one-seo-pack' ) . ' &raquo;';
