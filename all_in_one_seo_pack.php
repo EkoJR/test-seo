@@ -3,7 +3,7 @@
 Plugin Name: All In One SEO Pack
 Plugin URI: http://semperfiwebdesign.com
 Description: Out-of-the-box SEO for your WordPress blog. Features like XML Sitemaps, SEO for custom post types, SEO for blogs or business sites, SEO for ecommerce sites, and much more. Almost 30 million downloads since 2007.
-Version: 2.3.3-alpha
+Version: 2.3.3-beta
 Author: Michael Torbert
 Author URI: http://michaeltorbert.com
 Text Domain: all-in-one-seo-pack
@@ -29,11 +29,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
  * @package All-in-One-SEO-Pack
- * @version 2.3.3-alpha
+ * @version 2.3.3-beta
  */
 
 if(!defined('AIOSEOPPRO')) define('AIOSEOPPRO', false);
-
+if ( ! defined( 'AIOSEOP_VERSION' ) ) define( 'AIOSEOP_VERSION', '2.3.3-beta' );
+global $aioseop_plugin_name;
+$aioseop_plugin_name = 'All in One SEO Pack';
 
 /*******
 *
@@ -50,10 +52,8 @@ if( AIOSEOPPRO ){
 	
 }
 
-global $aioseop_plugin_name;
-$aioseop_plugin_name = 'All in One SEO Pack';
 if ( ! defined( 'AIOSEOP_PLUGIN_NAME' ) ) define( 'AIOSEOP_PLUGIN_NAME', $aioseop_plugin_name );
-if ( ! defined( 'AIOSEOP_VERSION' ) ) define( 'AIOSEOP_VERSION', '2.3.3-alpha' );
+
 
 //register_activation_hook(__FILE__,'aioseop_activate_pl');
 
@@ -207,11 +207,11 @@ add_action( 'plugins_loaded', 'aioseop_init_class' );
 
 
 
-if(!function_exists('sfwd_plugin_row_meta')){
+if(!function_exists('aiosp_plugin_row_meta')){
 
-add_filter( 'plugin_row_meta',     'sfwd_plugin_row_meta', 10, 2 );
+add_filter( 'plugin_row_meta',     'aiosp_plugin_row_meta', 10, 2 );
 
-function sfwd_plugin_row_meta( $actions, $plugin_file ) {
+function aiosp_plugin_row_meta( $actions, $plugin_file ) {
 
 if(!AIOSEOPPRO){	
 
@@ -233,7 +233,7 @@ if(!AIOSEOPPRO){
 	$action_links = '';
 }
 
-  return sfwd_action_links( $actions, $plugin_file, $action_links, 'after');
+  return aiosp_action_links( $actions, $plugin_file, $action_links, 'after');
 }
 }
 
@@ -242,14 +242,14 @@ if(!AIOSEOPPRO){
 
 
 
-if(!function_exists('sfwd_add_action_links'))  {
+if(!function_exists('aiosp_add_action_links'))  {
 
 
-add_filter( 'plugin_action_links_' . plugin_basename(__FILE__) , 'sfwd_add_action_links', 10, 2 );
+add_filter( 'plugin_action_links_' . plugin_basename(__FILE__) , 'aiosp_add_action_links', 10, 2 );
 
 
 
-function sfwd_add_action_links( $actions, $plugin_file ) {
+function aiosp_add_action_links( $actions, $plugin_file ) {
  
  $aioseop_plugin_dirname = AIOSEOP_PLUGIN_DIRNAME;
  $action_links = Array();
@@ -282,13 +282,13 @@ $action_links['proupgrade'] =
 );
 }
 
-  return sfwd_action_links( $actions, $plugin_file, $action_links, 'before');
+  return aiosp_action_links( $actions, $plugin_file, $action_links, 'before');
 }
 }
 
- if(!function_exists('sfwd_action_links'))  {
+ if(!function_exists('aiosp_action_links'))  {
 
-function  sfwd_action_links ( $actions, $plugin_file,  $action_links = array(), $position = 'after' ) { 
+function  aiosp_action_links ( $actions, $plugin_file,  $action_links = array(), $position = 'after' ) { 
   static $plugin;
   if( !isset($plugin) ) {
       $plugin = plugin_basename( __FILE__ );
@@ -312,6 +312,7 @@ if ( !function_exists( 'aioseop_init_class' ) ) {
 		load_plugin_textdomain( 'all-in-one-seo-pack', false, dirname( plugin_basename( __FILE__ ) ) . '/i18n/' );
 		require_once( AIOSEOP_PLUGIN_DIR . 'inc/aioseop_functions.php' );
 		require_once( AIOSEOP_PLUGIN_DIR . 'aioseop_class.php' );
+		require_once( AIOSEOP_PLUGIN_DIR . 'inc/aioseop_updates_class.php');
 		require_once( AIOSEOP_PLUGIN_DIR . 'inc/commonstrings.php');
 		require_once( AIOSEOP_PLUGIN_DIR . 'admin/display/postedit.php');
 		require_once( AIOSEOP_PLUGIN_DIR . 'admin/display/general-metaboxes.php');
@@ -321,9 +322,17 @@ if ( !function_exists( 'aioseop_init_class' ) ) {
 		if( AIOSEOPPRO ){
 			require_once( AIOSEOP_PLUGIN_DIR . 'pro/functions_general.php' );
 			require_once( AIOSEOP_PLUGIN_DIR . 'pro/functions_class.php');
+			require_once( AIOSEOP_PLUGIN_DIR . 'pro/aioseop_pro_updates_class.php');
 		}
 		seodt_init();
 		$aiosp = new All_in_One_SEO_Pack();
+		
+		$aioseop_updates = new AIOSEOP_Updates();
+
+		if( AIOSEOPPRO ){
+			$aioseop_pro_updates = new AIOSEOP_Pro_Updates();
+			add_action( 'admin_init', array( $aioseop_pro_updates, 'version_updates' ), 12 );
+		}
 
 		if ( aioseop_option_isset( 'aiosp_unprotect_meta' ) )
 			add_filter( 'is_protected_meta', 'aioseop_unprotect_meta', 10, 3 );
@@ -332,6 +341,7 @@ if ( !function_exists( 'aioseop_init_class' ) ) {
 
 
 		add_action( 'init', array( $aiosp, 'add_hooks' ) );
+		add_action( 'admin_init', array( $aioseop_updates, 'version_updates' ), 11 );
 		
 		if ( defined( 'DOING_AJAX' ) && !empty( $_POST ) && !empty( $_POST['action'] ) && ( $_POST['action'] === 'aioseop_ajax_scan_header' ) ) {
 			remove_action( 'init', array( $aiosp, 'add_hooks' ) );
@@ -379,10 +389,10 @@ if ( !function_exists( 'aioseop_scan_post_header' ) ) {
 require_once( AIOSEOP_PLUGIN_DIR . 'aioseop_init.php' );
 
 
-if(!function_exists('aiosp_install')){
-register_activation_hook( __FILE__, 'aiosp_install' );
+if(!function_exists('aioseop_install')){
+register_activation_hook( __FILE__, 'aioseop_install' );
 
-function aiosp_install(){
+function aioseop_install(){
 	aioseop_activate();
 }
 }

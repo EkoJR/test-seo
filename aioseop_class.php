@@ -975,18 +975,19 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			if ( strpos( $title_format, '%page_title%' ) !== false ) $title_format = str_replace( '%page_title%', $replace_title, $title_format );
 			if ( $w->is_category || $w->is_tag || $w->is_tax ) {
 				if(AIOSEOPPRO){
-					if ( !empty( $_GET ) && !empty( $_GET['taxonomy'] ) && function_exists( 'wp_get_split_terms' ) ) {
+					if ( !empty( $_GET ) && !empty( $_GET['taxonomy'] ) && !empty( $_GET['tag_ID'] ) && function_exists( 'wp_get_split_terms' ) ) {
+						$term_id = intval( $_GET['tag_ID'] );
 						$was_split = get_term_meta( $term_id, '_aioseop_term_was_split', true );
-					if ( !$was_split ) {
-						$split_terms = wp_get_split_terms( $featured_tag_id, $_GET['taxonomy'] );
-					if ( !empty( $split_terms ) ) {
-						foreach ( $split_terms as $new_tax => $new_term ) {
-							$this->split_shared_term( $term_id, $new_term );
+						if ( !$was_split ) {
+							$split_terms = wp_get_split_terms( $term_id, $_GET['taxonomy'] );
+							if ( !empty( $split_terms ) ) {
+								foreach ( $split_terms as $new_tax => $new_term ) {
+									$this->split_shared_term( $term_id, $new_term );
+								}
+							}
 						}
 					}
 				}
-			}
-		}
 				if ( strpos( $title_format, '%category_title%' ) !== false ) $title_format = str_replace( '%category_title%', $replace_title, $title_format );
 				if ( strpos( $title_format, '%taxonomy_title%' ) !== false ) $title_format = str_replace( '%taxonomy_title%', $replace_title, $title_format );
 			} else {
@@ -1214,7 +1215,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 											);
 		$this->pointers['aioseop_welcome_230'] = Array( 'pointer_target' => '#aioseop_top_button',
 													'pointer_text' => '<h3>' . sprintf( __( 'Review Your Settings', 'all-in-one-seo-pack' ), AIOSEOP_VERSION )
-													. '</h3><p>' . __( 'New in 2.3: improved support for taxonomies and a Video Sitemap module; enable modules from our feature manager! And please review your settings, we have added some new ones!', 'all-in-one-seo-pack' ) . '</p>',
+													. '</h3><p>' . __( 'New in 2.4: Improved support for taxonomies, Woocommerce and massive performance improvements under the hood! Please review your settings on each options page!', 'all-in-one-seo-pack' ) . '</p>',
 													 'pointer_edge' => 'bottom',
 													 'pointer_align' => 'left',
 													 'pointer_scope' => 'local'
@@ -1252,7 +1253,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 
 	function filter_submit( $submit ) {
 		$submit['Submit_Default']['value'] = __( 'Reset General Settings to Defaults', 'all-in-one-seo-pack' ) . ' &raquo;';
-		$submit['Submit_All_Default'] = Array( 'type' => 'submit', 'class' => 'button-primary', 'value' => __( 'Reset ALL Settings to Defaults', 'all-in-one-seo-pack' ) . ' &raquo;' );
+		$submit['Submit_All_Default'] = Array( 'type' => 'submit', 'class' => 'button-secondary', 'value' => __( 'Reset ALL Settings to Defaults', 'all-in-one-seo-pack' ) . ' &raquo;' );
 		return $submit;
 	}
 
@@ -1547,7 +1548,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			add_action( 'admin_head', array( $this, 'add_page_icon' ) );
 			add_action( 'admin_init', 'aioseop_addmycolumns', 1 );
 			add_action( 'admin_init', 'aioseop_handle_ignore_notice' );
-			add_action( 'admin_init', array( $this, 'version_update' ) );
 			if ( AIOSEOPPRO ){
 			if ( current_user_can( 'update_plugins' ) )
 				add_action( 'admin_notices', Array( $aioseop_update_checker, 'key_warning' ) );
@@ -3618,26 +3618,4 @@ EOF;
 								<?php
 							}
 
-	function version_update() {
-		global $aioseop_options;
-
-		// See if we need to do any update-related tasks
-		if ( false === $aioseop_options || !isset( $aioseop_options['update_version'] ) || version_compare( $aioseop_options['update_version'], $this->version, '<' ) ) {
-			$current_version = isset( $aioseop_options['update_version'] ) ? $aioseop_options['version'] : 0;
-			$this->do_version_updates( $current_version );
-			$aioseop_options['update_version'] = $this->version;
-			update_option( 'aioseop_options', $aioseop_options );
-		}
-	}
-
-	function do_version_updates( $old_version ) {
-		/*
-		if ( version_compare( $old_version, '2.4', '<' ) ) {
-			// Do changes needed for 2.4
-		}
-		if ( version_compare( $old_version, '2.5', '<' ) ) {
-			// Do changes needed for 2.5... etc
-		}
-		*/
-	}
 }
