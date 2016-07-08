@@ -3,7 +3,7 @@
 Plugin Name: All In One SEO Pack
 Plugin URI: http://semperfiwebdesign.com
 Description: Out-of-the-box SEO for your WordPress blog. Features like XML Sitemaps, SEO for custom post types, SEO for blogs or business sites, SEO for ecommerce sites, and much more. Almost 30 million downloads since 2007.
-Version: 2.3.6.1
+Version: 2.3.7
 Author: Michael Torbert
 Author URI: http://michaeltorbert.com
 Text Domain: all-in-one-seo-pack
@@ -32,14 +32,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * The original WordPress SEO plugin.
  *
  * @package All-in-One-SEO-Pack
- * @version 2.3.6.1
+ * @version 2.3.7
  */
 
 if ( ! defined( 'AIOSEOPPRO' ) ) {
 	define( 'AIOSEOPPRO', false );
 }
 if ( ! defined( 'AIOSEOP_VERSION' ) ) {
-	define( 'AIOSEOP_VERSION', '2.3.6.1' );
+	define( 'AIOSEOP_VERSION', '2.3.7' );
 }
 global $aioseop_plugin_name;
 $aioseop_plugin_name = 'All in One SEO Pack';
@@ -58,15 +58,18 @@ if ( AIOSEOPPRO ) {
 
 }
 
-function aiosp_add_cap(){
-	/*
-	 TODO we should put this into an install script. We just need to make sure it runs soon enough and we need to make
-	 sure people updating from previous versions have access to it.
-	*/
+if ( ! function_exists( 'aiosp_add_cap' ) ) {
 
-	$role = get_role( 'administrator' );
-	if ( is_object( $role ) ) {
-		$role->add_cap( 'aiosp_manage_seo' );
+	function aiosp_add_cap() {
+		/*
+		 TODO we should put this into an install script. We just need to make sure it runs soon enough and we need to make
+		 sure people updating from previous versions have access to it.
+		*/
+
+		$role = get_role( 'administrator' );
+		if ( is_object( $role ) ) {
+			$role->add_cap( 'aiosp_manage_seo' );
+		}
 	}
 }
 add_action( 'plugins_loaded', 'aiosp_add_cap' );
