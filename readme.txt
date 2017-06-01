@@ -131,6 +131,3 @@ enhancements:
 -Add support for the full set of Twitter meta tags (https://dev.twitter.com/cards/markup)
 -Bugfix for issue with Nonindex options for post types
 -Bugfix for schema.org OG markup
-
-
-
